@@ -1,28 +1,25 @@
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import { createClient } from '@supabase/supabase-js'
 
-// This client is used in Server Components and API routes
-export async function createClient() {
-  const cookieStore = await cookies();
+const supabase = createClient('NEXT_PUBLIC_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_ANON_KEY')
 
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
-            // Ignore — called from Server Component (read-only context)
-          }
-        },
+async function handleSubmit(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  
+  // Mapping form values to schema
+  const { data, error } = await supabase
+    .from('contact_inquiries')
+    .insert([
+      { 
+        name: `${formData.get('first_name')} ${formData.get('last_name')}`, 
+        email: formData.get('email'),
+        company: formData.get('company'),
+        service: formData.get('service'),
+        message: formData.get('message'),
+        status: 'NEW' // Default value
       },
-    }
-  );
+    ]);
+
+  if (error) console.error('Error inserting data:', error);
+  else console.log('Successfully inserted:', data);
 }

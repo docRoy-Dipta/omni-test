@@ -2,7 +2,8 @@
 
 import { createBrowserClient } from "@supabase/ssr";
 
-// This client is used in React components (client-side)
+// ✅ Uses ANON key — safe to expose in the browser
+// The service role key must NEVER be used here
 export function createClient() {
   return createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

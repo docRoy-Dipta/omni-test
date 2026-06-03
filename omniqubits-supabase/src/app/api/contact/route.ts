@@ -1,42 +1,57 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 const schema = z.object({
-  firstName: z.string().min(1).max(50),
-  lastName:  z.string().min(1).max(50),
-  email:     z.string().email(),
-  company:   z.string().max(100).optional(),
-  service:   z.string().max(100).optional(),
-  message:   z.string().min(1).max(2000),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().email(),
+  company: z.string().optional(),
+  service: z.string().optional(),
+  message: z.string().min(1),
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const body      = await request.json();
-    const validated = schema.parse(body);
-    const supabase  = await createClient();
+    const body = await req.json();
+    const parsed = schema.safeParse(body);
 
-    const { data, error } = await supabase
+  if (!parsed.success) {
+    return NextResponse.json(
+      { success: false, error: parsed.error.flatten() },
+      { status: 400 }
+    );
+  }
+
+  const data = parsed.data;
+
+    // ✅ SIMPLE CLIENT (NO SSR, NO COOKIES)
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY! 
+    );
+
+    const { data: result, error } = await supabase
       .from("contact_inquiries")
       .insert({
-        name:    `${validated.firstName} ${validated.lastName}`,
-        email:   validated.email,
-        company: validated.company ?? null,
-        service: validated.service ?? null,
-        message: validated.message,
-        status:  "NEW",
+        name: `${data.firstName} ${data.lastName}`,
+        email: data.email,
+        company: data.company ?? null,
+        service: data.service ?? null,
+        message: data.message,
+        status: "NEW",
       })
       .select("id")
       .single();
 
-    if (error) throw error;
-    return NextResponse.json({ success: true, id: data.id }, { status: 201 });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({ success: false, error: "Validation failed", details: error.errors }, { status: 400 });
+    if (error) {
+      console.error("SUPABASE ERROR:", error);
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
-    console.error("Contact error:", error);
-    return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 });
+
+    return NextResponse.json({ success: true, id: result.id });
+  } catch (err: any) {
+    console.error(err);
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
