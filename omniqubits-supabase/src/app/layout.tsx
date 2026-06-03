@@ -7,12 +7,14 @@ export const metadata: Metadata = {
     template: "%s | OmniQubits",
   },
   description:
-    "A limitless, all-encompassing approach to marketing, customer support, and technology — for the businesses of tomorrow.",
+    "OmniQubits harnesses a limitless, all-encompassing approach to business transformation — marketing, customer support, and technology — for the future-forward enterprise.",
   keywords: ["marketing agency", "growth marketing", "brand strategy", "technology", "AI", "digital transformation"],
   openGraph: {
-    type: "website", locale: "en_US", siteName: "OmniQubits",
+    type: "website",
+    locale: "en_US",
+    siteName: "OmniQubits",
     title: "OmniQubits — Beyond the Horizon of Innovation",
-    description: "A limitless approach to marketing, customer support, and technology for the businesses of tomorrow.",
+    description: "A limitless approach to marketing, customer support, and technology.",
   },
   robots: { index: true, follow: true },
 };

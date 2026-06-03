@@ -11,13 +11,13 @@ import * as path from "path";
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!url || !key) {
   console.error("\n❌ Missing environment variables!");
   console.error("   Make sure your .env file has:");
   console.error("   NEXT_PUBLIC_SUPABASE_URL=...");
-  console.error("   NEXT_PUBLIC_SUPABASE_ANON_KEY=...\n");
+  console.error("   SUPABASE_SERVICE_ROLE_KEY=...\n");
   process.exit(1);
 }
 

@@ -2,10 +2,20 @@
 
 import { createBrowserClient } from "@supabase/ssr";
 
-// This client is used in React components (client-side)
+/**
+ * Browser-safe Supabase client using the ANON key.
+ * This client is safe to use in client components and browser code.
+ * Uses cookies for session management.
+ */
 export function createClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error(
+      "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables."
+    );
+  }
+
+  return createBrowserClient(supabaseUrl, supabaseAnonKey);
 }

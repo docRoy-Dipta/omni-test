@@ -47,23 +47,36 @@ create table if not exists pricing_plans (
 );
 
 -- ── Contact Inquiries Table ───────────────────────────────
+-- Includes phone number and budget range fields
 create table if not exists contact_inquiries (
-  id         uuid primary key default gen_random_uuid(),
-  name       text not null,
-  email      text not null,
-  company    text,
-  service    text,
-  message    text not null,
-  status     text default 'NEW' check (status in ('NEW','REVIEWED','REPLIED','CLOSED')),
-  created_at timestamptz default now()
+  id           uuid primary key default gen_random_uuid(),
+  name         text not null,
+  email        text not null,
+  phone        text,
+  company      text,
+  service      text,
+  budget       text,
+  message      text not null,
+  status       text default 'NEW' check (status in ('NEW','REVIEWED','REPLIED','CLOSED')),
+  created_at   timestamptz default now()
 );
 
+-- ── If the table already exists, add the new columns ──────
+-- (Run these only if you already created the table without phone/budget)
+alter table contact_inquiries add column if not exists phone  text;
+alter table contact_inquiries add column if not exists budget text;
+
 -- ── Row Level Security (RLS) ──────────────────────────────
--- Allow anyone to READ services, testimonials, pricing (public data)
 alter table services          enable row level security;
 alter table testimonials       enable row level security;
 alter table pricing_plans      enable row level security;
 alter table contact_inquiries  enable row level security;
+
+-- Drop existing policies first (safe to re-run)
+drop policy if exists "Public can read services"       on services;
+drop policy if exists "Public can read testimonials"   on testimonials;
+drop policy if exists "Public can read pricing_plans"  on pricing_plans;
+drop policy if exists "Anyone can submit contact form" on contact_inquiries;
 
 create policy "Public can read services"
   on services for select using (true);
@@ -74,11 +87,10 @@ create policy "Public can read testimonials"
 create policy "Public can read pricing_plans"
   on pricing_plans for select using (true);
 
--- Allow anyone to INSERT contact form submissions
 create policy "Anyone can submit contact form"
   on contact_inquiries for insert with check (true);
 
--- Confirm everything was created
+-- Confirm tables
 select table_name from information_schema.tables
 where table_schema = 'public'
 order by table_name;

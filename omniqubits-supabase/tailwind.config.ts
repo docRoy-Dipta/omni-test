@@ -62,6 +62,8 @@ const config: Config = {
         "fade-in":   { from: { opacity: "0" }, to: { opacity: "1" } },
         "gold-pulse":{ "0%,100%": { boxShadow: "0 0 0 0 rgba(201,169,110,0)" }, "50%": { boxShadow: "0 0 20px 4px rgba(201,169,110,0.3)" } },
         marquee:     { from: { transform: "translateX(0)" }, to: { transform: "translateX(-50%)" } },
+        "pulse-slow":{ "0%,100%": { transform: "scale(1)", opacity: "1" }, "50%": { transform: "scale(1.05)", opacity: "0.8" } },
+        "spin-slow": { from: { transform: "rotate(0deg)" }, to: { transform: "rotate(360deg)" } },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -70,6 +72,8 @@ const config: Config = {
         "fade-in":        "fade-in 0.5s ease-out forwards",
         "gold-pulse":     "gold-pulse 2.5s ease-in-out infinite",
         marquee:          "marquee 22s linear infinite",
+        "pulse-slow":     "pulse-slow 4s ease-in-out infinite",
+        "spin-slow":      "spin-slow 12s linear infinite",
       },
     },
   },
