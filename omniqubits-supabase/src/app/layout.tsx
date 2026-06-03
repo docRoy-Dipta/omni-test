@@ -1,21 +1,32 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "OmniQubits — AI Marketing & Growth Agency",
-  description: "Strategic marketing, AI automation, and technology solutions for ambitious brands.",
+  title: {
+    default:  "OmniQubits — Beyond the Horizon of Innovation",
+    template: "%s | OmniQubits",
+  },
+  description:
+    "OmniQubits harnesses a limitless, all-encompassing approach to business transformation — marketing, customer support, and technology — for the future-forward enterprise.",
+  keywords: ["marketing agency", "growth marketing", "brand strategy", "technology", "AI", "digital transformation"],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "OmniQubits",
+    title: "OmniQubits — Beyond the Horizon of Innovation",
+    description: "A limitless approach to marketing, customer support, and technology.",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <Navbar />
-        <main className="pt-16">{children}</main>
-        <Footer />
-      </body>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }
