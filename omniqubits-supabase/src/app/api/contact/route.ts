@@ -6,6 +6,12 @@ import { z } from "zod";
  * Contact form submission schema.
  * Fields: name, email, company, message
  */
+
+/**
+ * Still contact number is not added. Need to add contact number field in the future if required.
+ * For now, we can use email for contact purposes.
+ */
+
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required").max(100),
   email: z.string().email("Please enter a valid email address"),
@@ -79,7 +85,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { success: false, error: message },
-      { status: 500 }
+      { status: 501 }
     );
   }
 }
