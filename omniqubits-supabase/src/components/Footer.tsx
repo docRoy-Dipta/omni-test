@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 type Msg = { text: string; type: "bot" | "user" };
 
@@ -97,8 +98,15 @@ export function ChatWidget() {
     </div>
   );
 }
-  "Growth Marketing", "Brand Strategy", "Customer Support Systems",
-  "Technology Solutions", "Data & Analytics", "Digital Transformation",
+
+
+const services = [
+  "Growth Marketing",
+  "Brand Strategy",
+  "Customer Support Systems",
+  "Technology Solutions",
+  "Data & Analytics",
+  "Digital Transformation",
 ];
 
 const company = [
