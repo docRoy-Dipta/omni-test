@@ -2,10 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap');
+/*
+  NOTE: Google Fonts are loaded via <link> tags in app/layout.tsx
+  using rel="preconnect" + rel="stylesheet".
+  Do NOT add @import here — CSS @import is render-blocking and
+  delays the first paint by 300-600ms on slow connections.
+*/
 
 @layer base {
   :root {
+    /* ── OmniQubits Design Tokens ─────────────────────── */
     --gold:         #C9A96E;
     --gold-light:   #E8D5A8;
     --gold-dark:    #8B6B3D;
@@ -22,34 +28,40 @@
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body:    'Jost', sans-serif;
 
-    /* ShadCN required */
-    --background:           220 20% 4%;
-    --foreground:           40 30% 93%;
-    --card:                 220 20% 6%;
-    --card-foreground:      40 30% 93%;
-    --popover:              220 20% 6%;
-    --popover-foreground:   40 30% 93%;
-    --primary:              38 47% 61%;
-    --primary-foreground:   220 20% 4%;
-    --secondary:            220 20% 10%;
-    --secondary-foreground: 40 30% 93%;
-    --muted:                220 20% 14%;
-    --muted-foreground:     0 0% 54%;
-    --accent:               38 47% 61%;
-    --accent-foreground:    220 20% 4%;
-    --destructive:          0 84% 60%;
+    /* ── ShadCN Required CSS Variables ───────────────── */
+    --background:             220 20% 4%;
+    --foreground:             40 30% 93%;
+    --card:                   220 20% 6%;
+    --card-foreground:        40 30% 93%;
+    --popover:                220 20% 6%;
+    --popover-foreground:     40 30% 93%;
+    --primary:                38 47% 61%;
+    --primary-foreground:     220 20% 4%;
+    --secondary:              220 20% 10%;
+    --secondary-foreground:   40 30% 93%;
+    --muted:                  220 20% 14%;
+    --muted-foreground:       0 0% 54%;
+    --accent:                 38 47% 61%;
+    --accent-foreground:      220 20% 4%;
+    --destructive:            0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border:               220 20% 12%;
-    --input:                220 20% 10%;
-    --ring:                 38 47% 61%;
-    --radius:               0.125rem;
+    --border:                 220 20% 12%;
+    --input:                  220 20% 10%;
+    --ring:                   38 47% 61%;
+    --radius:                 0.125rem;
   }
 }
 
 @layer base {
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+  }
 
   body {
     background-color: var(--obsidian);
@@ -60,7 +72,7 @@
     overflow-x: hidden;
   }
 
-  /* Noise texture — preserved from original design */
+  /* Noise texture overlay — preserved from original design */
   body::before {
     content: '';
     position: fixed;
@@ -71,10 +83,12 @@
     opacity: 0.4;
   }
 
+  /* Custom scrollbar */
   ::-webkit-scrollbar       { width: 3px; }
   ::-webkit-scrollbar-track { background: var(--obsidian); }
   ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
 
+  /* Heading defaults */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 400;
@@ -83,22 +97,39 @@
 }
 
 @layer utilities {
-  .font-display    { font-family: var(--font-display); }
-  .text-gold       { color: var(--gold); }
-  .text-gold-light { color: var(--gold-light); }
-  .text-muted-oq   { color: var(--muted-color); }
-  .text-cream      { color: var(--cream); }
-  .text-cream-2    { color: var(--cream-2); }
-  .bg-obsidian     { background-color: var(--obsidian); }
-  .bg-obsidian-2   { background-color: var(--obsidian-2); }
-  .bg-obsidian-3   { background-color: var(--obsidian-3); }
-  .bg-obsidian-4   { background-color: var(--obsidian-4); }
+  /* Typography */
+  .font-display     { font-family: var(--font-display); }
+  .text-gold        { color: var(--gold); }
+  .text-gold-light  { color: var(--gold-light); }
+  .text-muted-oq    { color: var(--muted-color); }
+  .text-muted-color { color: var(--muted-color); }
+  .text-cream       { color: var(--cream); }
+  .text-cream-2     { color: var(--cream-2); }
+
+  /* Backgrounds */
+  .bg-obsidian   { background-color: var(--obsidian); }
+  .bg-obsidian-2 { background-color: var(--obsidian-2); }
+  .bg-obsidian-3 { background-color: var(--obsidian-3); }
+  .bg-obsidian-4 { background-color: var(--obsidian-4); }
+  .bg-obsidian-5 { background-color: var(--obsidian-5); }
+
+  /* Borders */
+  .border-gold        { border-color: var(--gold); }
   .border-gold-subtle { border-color: var(--border-color); }
   .border-gold-glow   { border-color: var(--border-glow); }
-  .border-gold        { border-color: var(--gold); }
-  .gold-glow { box-shadow: 0 0 30px rgba(201, 169, 110, 0.2); }
+
+  /* Effects */
+  .gold-glow {
+    box-shadow: 0 0 30px rgba(201, 169, 110, 0.2);
+  }
+
   .gold-text-gradient {
-    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--gold-light) 0%,
+      var(--gold)       50%,
+      var(--gold-dark)  100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
