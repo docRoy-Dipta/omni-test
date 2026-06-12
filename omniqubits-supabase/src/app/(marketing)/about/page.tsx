@@ -59,21 +59,21 @@ const engineeringItems = [
 // ─────────────────────────────────────────────────────────────
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-obsidian text-cream">
+    <div className="min-h-screen bg-white text-black">
 
       {/* ── Hero ──────────────────────────────────────────── */}
       <section className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(201,169,110,0.06)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(255,140,0,0.06)_0%,transparent_70%)]" />
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <FadeUp>
             <div className="flex items-center justify-center gap-4 mb-6">
-              <span className="h-px w-12 bg-gold/60" />
-              <span className="text-gold text-xs tracking-[0.3em] uppercase">Who We Are</span>
-              <span className="h-px w-12 bg-gold/60" />
+              <span className="h-px w-12 bg-orange-500/60" />
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Who We Are</span>
+              <span className="h-px w-12 bg-orange-500/60" />
             </div>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl mb-6">
               A Global Force for<br />
-              <em className="text-gold font-light">Business Evolution</em>
+              <em className="text-orange-500 font-light">Business Evolution</em>
             </h1>
             <p className="text-muted-oq text-lg max-w-2xl mx-auto leading-relaxed">
               OmniQubits was founded on a simple conviction: that the boundaries between marketing,
@@ -85,18 +85,18 @@ export default function AboutPage() {
       </section>
 
       {/* ── Mission & Vision ──────────────────────────────── */}
-      <section className="py-24 px-6 bg-obsidian-2">
+      <section className="py-24 px-6 bg-white-2">
         <div className="max-w-5xl mx-auto">
           <FadeUpGroup className="grid md:grid-cols-2 gap-16" stagger={0.15}>
 
             <FadeUpItem>
               <div className="flex items-center gap-4 mb-4">
-                <span className="h-px w-12 bg-gold/60" />
-                <span className="text-gold text-xs tracking-[0.3em] uppercase">Our Mission</span>
+                <span className="h-px w-12 bg-orange-500/60" />
+                <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Our Mission</span>
               </div>
               <h2 className="font-display text-3xl md:text-4xl mb-6">
                 Empowering Businesses<br />
-                <em className="text-gold font-light">Beyond Limits</em>
+                <em className="text-orange-500 font-light">Beyond Limits</em>
               </h2>
               <p className="text-muted-oq text-sm leading-relaxed">
                 We exist to help forward-thinking enterprises unlock their full potential by unifying
@@ -107,12 +107,12 @@ export default function AboutPage() {
 
             <FadeUpItem>
               <div className="flex items-center gap-4 mb-4">
-                <span className="h-px w-12 bg-gold/60" />
-                <span className="text-gold text-xs tracking-[0.3em] uppercase">Our Vision</span>
+                <span className="h-px w-12 bg-orange-500/60" />
+                <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Our Vision</span>
               </div>
               <h2 className="font-display text-3xl md:text-4xl mb-6">
                 The Future of<br />
-                <em className="text-gold font-light">Business Transformation</em>
+                <em className="text-orange-500 font-light">Business Transformation</em>
               </h2>
               <p className="text-muted-oq text-sm leading-relaxed">
                 We envision a world where businesses operate without the artificial boundaries between
@@ -130,20 +130,20 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto">
           <FadeUp className="text-center mb-16">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <span className="h-px w-12 bg-gold/60" />
-              <span className="text-gold text-xs tracking-[0.3em] uppercase">What We Believe</span>
-              <span className="h-px w-12 bg-gold/60" />
+              <span className="h-px w-12 bg-orange-500/60" />
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">What We Believe</span>
+              <span className="h-px w-12 bg-orange-500/60" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl">
-              Our <em className="text-gold font-light">Core Values</em>
+              Our <em className="text-orange-500 font-light">Core Values</em>
             </h2>
           </FadeUp>
 
           <FadeUpGroup className="grid md:grid-cols-2 gap-6" stagger={0.08}>
             {values.map((v) => (
               <FadeUpItem key={v.title}>
-                <div className="bg-obsidian-2 border border-gold/15 p-8 hover:border-gold/35 transition-colors h-full">
-                  <h3 className="font-display text-xl text-cream mb-3">{v.title}</h3>
+                <div className="bg-white-2 border border-orange-500/15 p-8 hover:border-orange-500/35 transition-colors h-full">
+                  <h3 className="font-display text-xl text-black mb-3">{v.title}</h3>
                   <p className="text-muted-oq text-sm leading-relaxed">{v.description}</p>
                 </div>
               </FadeUpItem>
@@ -153,33 +153,33 @@ export default function AboutPage() {
       </section>
 
       {/* ── Timeline ──────────────────────────────────────── */}
-      <section className="py-24 px-6 bg-obsidian-2">
+      <section className="py-24 px-6 bg-white-2">
         <div className="max-w-4xl mx-auto">
           <FadeUp className="text-center mb-16">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <span className="h-px w-12 bg-gold/60" />
-              <span className="text-gold text-xs tracking-[0.3em] uppercase">Our Journey</span>
-              <span className="h-px w-12 bg-gold/60" />
+              <span className="h-px w-12 bg-orange-500/60" />
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Our Journey</span>
+              <span className="h-px w-12 bg-orange-500/60" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl">
-              The <em className="text-gold font-light">Evolution</em>
+              The <em className="text-orange-500 font-light">Evolution</em>
             </h2>
           </FadeUp>
 
           <div className="relative">
             {/* Vertical line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gold/15" />
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-orange-500/15" />
 
             <div className="space-y-12">
               {timeline.map((item, i) => (
                 <FadeUp key={item.year} delay={i * 0.04}>
                   <div className={`relative flex items-start ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
                     {/* Dot */}
-                    <div className="absolute left-4 md:left-1/2 w-3 h-3 bg-gold -translate-x-1/2 rounded-full mt-1" />
+                    <div className="absolute left-4 md:left-1/2 w-3 h-3 bg-orange-500 -translate-x-1/2 rounded-full mt-1" />
                     {/* Content */}
                     <div className={`ml-12 md:ml-0 md:w-1/2 ${i % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
-                      <div className="text-gold text-xs tracking-[0.2em] uppercase mb-1">{item.year}</div>
-                      <h3 className="font-display text-lg text-cream mb-1">{item.title}</h3>
+                      <div className="text-orange-500 text-xs tracking-[0.2em] uppercase mb-1">{item.year}</div>
+                      <h3 className="font-display text-lg text-black mb-1">{item.title}</h3>
                       <p className="text-muted-oq text-sm leading-relaxed">{item.description}</p>
                     </div>
                   </div>
@@ -196,12 +196,12 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
 
             <FadeUp>
-              <div className="aspect-square border border-gold/15 bg-obsidian-2 flex items-center justify-center relative overflow-hidden">
-                <div className="w-40 h-40 rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(201,169,110,0.25)_0%,rgba(201,169,110,0.05)_50%,transparent_70%)] border border-gold/20 flex items-center justify-center">
-                  <span className="font-display text-5xl text-gold/30">∞</span>
+              <div className="aspect-square border border-orange-500/15 bg-white-2 flex items-center justify-center relative overflow-hidden">
+                <div className="w-40 h-40 rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(255,140,0,0.25)_0%,rgba(255,140,0,0.05)_50%,transparent_70%)] border border-orange-500/20 flex items-center justify-center">
+                  <span className="font-display text-5xl text-orange-500/30">∞</span>
                 </div>
-                <div className="absolute -bottom-4 -right-4 bg-obsidian-4 border border-gold/35 p-6">
-                  <div className="font-display text-3xl text-gold">200+</div>
+                <div className="absolute -bottom-4 -right-4 bg-white-4 border border-orange-500/35 p-6">
+                  <div className="font-display text-3xl text-orange-500">200+</div>
                   <div className="text-muted-oq text-xs tracking-wide">Global Clients</div>
                 </div>
               </div>
@@ -209,12 +209,12 @@ export default function AboutPage() {
 
             <FadeUp delay={0.15}>
               <div className="flex items-center gap-4 mb-4">
-                <span className="h-px w-12 bg-gold/60" />
-                <span className="text-gold text-xs tracking-[0.3em] uppercase">Engineering Standards</span>
+                <span className="h-px w-12 bg-orange-500/60" />
+                <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Engineering Standards</span>
               </div>
               <h2 className="font-display text-4xl md:text-5xl mb-6">
                 Built for<br />
-                <em className="text-gold font-light">Excellence</em>
+                <em className="text-orange-500 font-light">Excellence</em>
               </h2>
               <p className="text-muted-oq text-sm leading-relaxed mb-8">
                 We hold ourselves to the highest engineering standards. Every line of code, every campaign,
@@ -224,7 +224,7 @@ export default function AboutPage() {
               <ul className="space-y-3">
                 {engineeringItems.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-muted-oq text-sm">
-                    <span className="text-gold text-xs mt-1 shrink-0">◆</span>
+                    <span className="text-orange-500 text-xs mt-1 shrink-0">◆</span>
                     {item}
                   </li>
                 ))}
@@ -236,10 +236,10 @@ export default function AboutPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────── */}
-      <section className="py-24 px-6 bg-obsidian-2">
+      <section className="py-24 px-6 bg-white-2">
         <FadeUp className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-4xl md:text-5xl mb-6">
-            Join the <em className="text-gold font-light">Future</em>
+            Join the <em className="text-orange-500 font-light">Future</em>
           </h2>
           <p className="text-muted-oq text-sm mb-10">
             Ready to transform your business with a partner who thinks beyond the ordinary?
@@ -248,13 +248,13 @@ export default function AboutPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="bg-gold text-obsidian px-8 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-gold-light hover:-translate-y-0.5 transition-all"
+              className="bg-orange-500 text-obsidian px-8 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-orange-500-light hover:-translate-y-0.5 transition-all"
             >
               Get in Touch
             </Link>
             <Link
               href="/services"
-              className="border border-gold/35 text-cream px-8 py-4 text-sm tracking-[0.15em] uppercase hover:border-gold hover:text-gold hover:-translate-y-0.5 transition-all"
+              className="border border-orange-500/35 text-black px-8 py-4 text-sm tracking-[0.15em] uppercase hover:border-orange-500 hover:text-orange-500 hover:-translate-y-0.5 transition-all"
             >
               Explore Services
             </Link>

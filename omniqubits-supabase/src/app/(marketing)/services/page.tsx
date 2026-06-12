@@ -90,21 +90,21 @@ const whyUs = [
 // ─────────────────────────────────────────────────────────────
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-obsidian text-cream">
+    <div className="min-h-screen bg-white text-black">
 
       {/* ── Hero ──────────────────────────────────────────── */}
       <section className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(201,169,110,0.06)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(255,140,0,0.06)_0%,transparent_70%)]" />
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <FadeUp>
             <div className="flex items-center justify-center gap-4 mb-6">
-              <span className="h-px w-12 bg-gold/60" />
-              <span className="text-gold text-xs tracking-[0.3em] uppercase">Our Expertise</span>
-              <span className="h-px w-12 bg-gold/60" />
+              <span className="h-px w-12 bg-orange-500/60" />
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Our Expertise</span>
+              <span className="h-px w-12 bg-orange-500/60" />
             </div>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl mb-6">
               Precision-Built<br />
-              <em className="text-gold font-light">Services</em>
+              <em className="text-orange-500 font-light">Services</em>
             </h1>
             <p className="text-muted-oq text-lg max-w-2xl mx-auto leading-relaxed">
               Every service is engineered to compound growth — from acquiring new customers to
@@ -115,13 +115,13 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Stats ─────────────────────────────────────────── */}
-      <section className="py-12 bg-obsidian-2 border-y border-gold/15">
+      <section className="py-12 bg-white-2 border-y border-orange-500/15">
         <div className="max-w-5xl mx-auto px-6">
           <FadeUpGroup className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (
               <FadeUpItem key={stat.label}>
                 <div className="text-center">
-                  <div className="font-display text-3xl md:text-4xl text-gold mb-1">{stat.value}</div>
+                  <div className="font-display text-3xl md:text-4xl text-orange-500 mb-1">{stat.value}</div>
                   <div className="text-muted-oq text-xs tracking-[0.15em] uppercase">{stat.label}</div>
                 </div>
               </FadeUpItem>
@@ -136,18 +136,18 @@ export default function ServicesPage() {
           <FadeUpGroup className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" stagger={0.05}>
             {services.map((svc) => (
               <FadeUpItem key={svc.number}>
-                <div className="bg-obsidian-2 border border-gold/15 p-8 hover:border-gold/35 transition-all group relative overflow-hidden h-full">
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="w-12 h-12 border border-gold/35 flex items-center justify-center text-gold text-xl mb-6 group-hover:bg-gold group-hover:text-obsidian transition-all">
+                <div className="bg-white-2 border border-orange-500/15 p-8 hover:border-orange-500/35 transition-all group relative overflow-hidden h-full">
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="w-12 h-12 border border-orange-500/35 flex items-center justify-center text-orange-500 text-xl mb-6 group-hover:bg-orange-500 group-hover:text-obsidian transition-all">
                     {svc.icon}
                   </div>
-                  <div className="font-display text-xs tracking-[0.2em] text-gold opacity-50 mb-2">{svc.number}</div>
-                  <h3 className="font-display text-2xl text-cream mb-3">{svc.name}</h3>
+                  <div className="font-display text-xs tracking-[0.2em] text-orange-500 opacity-50 mb-2">{svc.number}</div>
+                  <h3 className="font-display text-2xl text-black mb-3">{svc.name}</h3>
                   <p className="text-muted-oq text-sm leading-relaxed mb-6">{svc.description}</p>
                   <ul className="space-y-2">
                     {svc.features.slice(0, 4).map((f) => (
                       <li key={f} className="flex items-start gap-2 text-muted-oq text-sm">
-                        <span className="text-gold text-xs mt-1 shrink-0">◆</span>
+                        <span className="text-orange-500 text-xs mt-1 shrink-0">◆</span>
                         {f}
                       </li>
                     ))}
@@ -160,16 +160,16 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Process ───────────────────────────────────────── */}
-      <section className="py-24 bg-obsidian-2 px-4">
+      <section className="py-24 bg-white-2 px-4">
         <div className="max-w-5xl mx-auto">
           <FadeUp className="text-center mb-16">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <span className="h-px w-12 bg-gold/60" />
-              <span className="text-gold text-xs tracking-[0.3em] uppercase">Our Process</span>
-              <span className="h-px w-12 bg-gold/60" />
+              <span className="h-px w-12 bg-orange-500/60" />
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Our Process</span>
+              <span className="h-px w-12 bg-orange-500/60" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl">
-              How We <em className="text-gold font-light">Work</em>
+              How We <em className="text-orange-500 font-light">Work</em>
             </h2>
           </FadeUp>
 
@@ -177,11 +177,11 @@ export default function ServicesPage() {
             {process.map((p, i) => (
               <FadeUpItem key={p.step}>
                 <div className="text-center relative">
-                  <div className="font-display text-5xl text-gold/20 mb-4">{p.step}</div>
-                  <h3 className="font-display text-xl text-cream mb-2">{p.title}</h3>
+                  <div className="font-display text-5xl text-orange-500/20 mb-4">{p.step}</div>
+                  <h3 className="font-display text-xl text-black mb-2">{p.title}</h3>
                   <p className="text-muted-oq text-sm">{p.description}</p>
                   {i < process.length - 1 && (
-                    <div className="hidden md:block absolute top-8 -right-3 text-gold/20">
+                    <div className="hidden md:block absolute top-8 -right-3 text-orange-500/20">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
@@ -200,12 +200,12 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <FadeUp>
               <div className="flex items-center gap-4 mb-4">
-                <span className="h-px w-12 bg-gold/60" />
-                <span className="text-gold text-xs tracking-[0.3em] uppercase">Why OmniQubits</span>
+                <span className="h-px w-12 bg-orange-500/60" />
+                <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Why OmniQubits</span>
               </div>
               <h2 className="font-display text-4xl md:text-5xl mb-6">
                 A Different<br />
-                <em className="text-gold font-light">Approach</em>
+                <em className="text-orange-500 font-light">Approach</em>
               </h2>
               <p className="text-muted-oq text-sm leading-relaxed mb-8">
                 We don't believe in cookie-cutter solutions. Every business is unique, and we build
@@ -214,13 +214,13 @@ export default function ServicesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {whyUs.map((item) => (
                   <div key={item.title} className="flex gap-3">
-                    <div className="w-10 h-10 border border-gold/15 flex items-center justify-center text-gold shrink-0">
+                    <div className="w-10 h-10 border border-orange-500/15 flex items-center justify-center text-orange-500 shrink-0">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                         <path d="M20 6L9 17l-5-5" />
                       </svg>
                     </div>
                     <div>
-                      <div className="text-cream text-sm font-medium">{item.title}</div>
+                      <div className="text-black text-sm font-medium">{item.title}</div>
                       <div className="text-muted-oq text-xs">{item.desc}</div>
                     </div>
                   </div>
@@ -229,13 +229,13 @@ export default function ServicesPage() {
             </FadeUp>
 
             <FadeUp delay={0.15}>
-              <div className="aspect-square border border-gold/15 bg-obsidian-2 flex items-center justify-center relative">
+              <div className="aspect-square border border-orange-500/15 bg-white-2 flex items-center justify-center relative">
                 <div className="text-center">
-                  <div className="font-display text-6xl text-gold mb-2">∞</div>
+                  <div className="font-display text-6xl text-orange-500 mb-2">∞</div>
                   <div className="text-muted-oq text-xs tracking-[0.2em] uppercase">Possibilities</div>
                 </div>
-                <div className="absolute -bottom-4 -right-4 bg-obsidian-4 border border-gold/35 p-6">
-                  <div className="font-display text-3xl text-gold">200+</div>
+                <div className="absolute -bottom-4 -right-4 bg-white-4 border border-orange-500/35 p-6">
+                  <div className="font-display text-3xl text-orange-500">200+</div>
                   <div className="text-muted-oq text-xs">Global Clients</div>
                 </div>
               </div>
@@ -245,19 +245,19 @@ export default function ServicesPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────── */}
-      <section className="py-24 bg-obsidian-2 px-4">
+      <section className="py-24 bg-white-2 px-4">
         <FadeUp className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-4xl md:text-5xl mb-6">
-            Ready to <em className="text-gold font-light">Transform</em>?
+            Ready to <em className="text-orange-500 font-light">Transform</em>?
           </h2>
           <p className="text-muted-oq text-sm mb-10">
             Let's discuss how we can help your business grow. Schedule a free consultation today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="bg-gold text-obsidian px-8 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-gold-light hover:-translate-y-0.5 transition-all">
+            <Link href="/contact" className="bg-orange-500 text-obsidian px-8 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-orange-500-light hover:-translate-y-0.5 transition-all">
               Get Started
             </Link>
-            <Link href="/pricing" className="border border-gold/35 text-cream px-8 py-4 text-sm tracking-[0.15em] uppercase hover:border-gold hover:text-gold hover:-translate-y-0.5 transition-all">
+            <Link href="/pricing" className="border border-orange-500/35 text-black px-8 py-4 text-sm tracking-[0.15em] uppercase hover:border-orange-500 hover:text-orange-500 hover:-translate-y-0.5 transition-all">
               View Pricing
             </Link>
           </div>

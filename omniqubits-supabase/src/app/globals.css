@@ -12,42 +12,48 @@
 @layer base {
   :root {
     /* ── OmniQubits Design Tokens ─────────────────────── */
-    --gold:         #C9A96E;
-    --gold-light:   #E8D5A8;
-    --gold-dark:    #8B6B3D;
-    --obsidian:     #080A0E;
-    --obsidian-2:   #0E1118;
-    --obsidian-3:   #141820;
-    --obsidian-4:   #1C2230;
-    --obsidian-5:   #252D3D;
-    --cream:        #F5F0E8;
-    --cream-2:      #E8E0D0;
-    --muted-color:  #8A8A8A;
-    --border-color: rgba(201, 169, 110, 0.15);
-    --border-glow:  rgba(201, 169, 110, 0.35);
+    /* Brown replaced with Orange */
+    --gold:         #FF8C00;
+    --gold-light:   #FFB347;
+    --gold-dark:    #CC7000;
+    /* White colors replaced with Black */
+    --obsidian:     #FFFFFF;
+    --obsidian-2:   #F0F0F0;
+    --obsidian-3:   #E5E5E5;
+    --obsidian-4:   #D4D4D4;
+    --obsidian-5:   #C0C0C0;
+    /* Cream replaced with Black */
+    --cream:        #000000;
+    --cream-2:      #1A1A1A;
+    --muted-color:  #6B6B6B;
+    --border-color: rgba(255, 140, 0, 0.15);
+    --border-glow:  rgba(255, 140, 0, 0.35);
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body:    'Jost', sans-serif;
 
     /* ── ShadCN Required CSS Variables ───────────────── */
-    --background:             220 20% 4%;
-    --foreground:             40 30% 93%;
-    --card:                   220 20% 6%;
-    --card-foreground:        40 30% 93%;
-    --popover:                220 20% 6%;
-    --popover-foreground:     40 30% 93%;
-    --primary:                38 47% 61%;
-    --primary-foreground:     220 20% 4%;
-    --secondary:              220 20% 10%;
-    --secondary-foreground:   40 30% 93%;
-    --muted:                  220 20% 14%;
-    --muted-foreground:       0 0% 54%;
-    --accent:                 38 47% 61%;
-    --accent-foreground:      220 20% 4%;
+    /* Background is now white */
+    --background:             0 0% 100%;
+    /* Foreground is now black */
+    --foreground:             0 0% 0%;
+    --card:                   0 0% 98%;
+    --card-foreground:        0 0% 0%;
+    --popover:                0 0% 98%;
+    --popover-foreground:     0 0% 0%;
+    /* Primary is now orange */
+    --primary:                33 100% 50%;
+    --primary-foreground:     0 0% 100%;
+    --secondary:              0 0% 90%;
+    --secondary-foreground:   0 0% 0%;
+    --muted:                  0 0% 85%;
+    --muted-foreground:       0 0% 40%;
+    --accent:                 33 100% 50%;
+    --accent-foreground:      0 0% 100%;
     --destructive:            0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border:                 220 20% 12%;
-    --input:                  220 20% 10%;
-    --ring:                   38 47% 61%;
+    --border:                 0 0% 80%;
+    --input:                  0 0% 90%;
+    --ring:                   33 100% 50%;
     --radius:                 0.125rem;
   }
 }
@@ -72,16 +78,7 @@
     overflow-x: hidden;
   }
 
-  /* Noise texture overlay — preserved from original design */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.4;
-  }
+  /* Noise texture overlay — removed for white background */
 
   /* Custom scrollbar */
   ::-webkit-scrollbar       { width: 3px; }
@@ -98,32 +95,32 @@
 
 @layer utilities {
   /* Typography */
-  .font-display     { font-family: var(--font-display); }
-  .text-gold        { color: var(--gold); }
-  .text-gold-light  { color: var(--gold-light); }
-  .text-muted-oq    { color: var(--muted-color); }
-  .text-muted-color { color: var(--muted-color); }
-  .text-cream       { color: var(--cream); }
-  .text-cream-2     { color: var(--cream-2); }
+  .font-display        { font-family: var(--font-display); }
+  .text-orange         { color: var(--gold); }
+  .text-orange-light   { color: var(--gold-light); }
+  .text-muted-oq       { color: var(--muted-color); }
+  .text-muted-color    { color: var(--muted-color); }
+  .text-black          { color: var(--cream); }
+  .text-black-2        { color: var(--cream-2); }
 
   /* Backgrounds */
-  .bg-obsidian   { background-color: var(--obsidian); }
-  .bg-obsidian-2 { background-color: var(--obsidian-2); }
-  .bg-obsidian-3 { background-color: var(--obsidian-3); }
-  .bg-obsidian-4 { background-color: var(--obsidian-4); }
-  .bg-obsidian-5 { background-color: var(--obsidian-5); }
+  .bg-white   { background-color: var(--obsidian); }
+  .bg-white-2 { background-color: var(--obsidian-2); }
+  .bg-white-3 { background-color: var(--obsidian-3); }
+  .bg-white-4 { background-color: var(--obsidian-4); }
+  .bg-white-5 { background-color: var(--obsidian-5); }
 
   /* Borders */
-  .border-gold        { border-color: var(--gold); }
-  .border-gold-subtle { border-color: var(--border-color); }
-  .border-gold-glow   { border-color: var(--border-glow); }
+  .border-orange         { border-color: var(--gold); }
+  .border-orange-subtle  { border-color: var(--border-color); }
+  .border-orange-glow   { border-color: var(--border-glow); }
 
   /* Effects */
-  .gold-glow {
-    box-shadow: 0 0 30px rgba(201, 169, 110, 0.2);
+  .orange-glow {
+    box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
   }
 
-  .gold-text-gradient {
+  .orange-text-gradient {
     background: linear-gradient(
       135deg,
       var(--gold-light) 0%,

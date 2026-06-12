@@ -82,16 +82,16 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0,  scale: 1 }}
             exit={{   opacity: 0, y: 16, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="w-80 bg-obsidian-2 border border-gold-glow shadow-[0_20px_60px_rgba(0,0,0,0.7)] flex flex-col overflow-hidden"
+            className="w-80 bg-white border border-orange-glow shadow-[0_20px_60px_rgba(0,0,0,0.15)] flex flex-col overflow-hidden"
             style={{ maxHeight: "min(480px, 80vh)" }}
           >
             {/* Header */}
-            <div className="bg-obsidian-3 border-b border-gold-subtle px-4 py-3 flex items-center gap-3 shrink-0">
-              <div className="w-8 h-8 rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(201,169,110,0.5),rgba(201,169,110,0.1))] border border-gold-glow flex items-center justify-center font-display text-gold text-xs shrink-0">
+            <div className="bg-gray-100 border-b border-orange-subtle px-4 py-3 flex items-center gap-3 shrink-0">
+              <div className="w-8 h-8 rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(255,140,0,0.5),rgba(255,140,0,0.1))] border border-orange-glow flex items-center justify-center font-display text-orange-500 text-xs shrink-0">
                 OQ
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-cream text-sm leading-none">OmniQubits AI</p>
+                <p className="text-black text-sm leading-none">OmniQubits AI</p>
                 <p className="flex items-center gap-1.5 mt-0.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
                   <span className="text-green-400 text-xs">Online</span>
@@ -99,7 +99,7 @@ export function ChatWidget() {
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="text-muted-color hover:text-cream transition-colors p-1 shrink-0"
+                className="text-black/60 hover:text-orange-500 transition-colors p-1 shrink-0"
                 aria-label="Close chat"
               >
                 <X size={15} />
@@ -113,8 +113,8 @@ export function ChatWidget() {
                   key={i}
                   className={`max-w-[85%] px-3 py-2.5 text-sm leading-relaxed ${
                     m.type === "bot"
-                      ? "bg-obsidian-4 border border-gold-subtle text-cream-2 mr-auto"
-                      : "bg-gold-dark/80 text-cream ml-auto"
+                      ? "bg-gray-100 border border-orange-subtle text-black/80 mr-auto"
+                      : "bg-orange-500-dark text-white ml-auto"
                   }`}
                 >
                   {m.text}
@@ -130,7 +130,7 @@ export function ChatWidget() {
                   <button
                     key={r}
                     onClick={() => send(r)}
-                    className="border border-gold/30 hover:border-gold text-gold text-xs px-3 py-1 rounded-full transition-colors"
+                    className="border border-orange-500/30 hover:border-orange-500 text-orange-500 text-xs px-3 py-1 rounded-full transition-colors"
                   >
                     {r}
                   </button>
@@ -139,19 +139,19 @@ export function ChatWidget() {
             )}
 
             {/* Input */}
-            <div className="flex border-t border-gold-subtle shrink-0">
+            <div className="flex border-t border-orange-subtle shrink-0">
               <input
                 type="text"
                 placeholder="Type your message…"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && send()}
-                className="flex-1 bg-obsidian text-cream text-sm px-4 py-3 outline-none placeholder:text-muted-color/40"
+                className="flex-1 bg-white text-black text-sm px-4 py-3 outline-none placeholder:text-black/40"
                 aria-label="Chat message input"
               />
               <button
                 onClick={() => send()}
-                className="bg-gold hover:bg-gold-light text-obsidian px-4 transition-colors"
+                className="bg-orange-500 hover:bg-orange-500-light text-obsidian px-4 transition-colors"
                 aria-label="Send message"
               >
                 <ArrowRight size={15} />
@@ -164,7 +164,7 @@ export function ChatWidget() {
       {/* ── Toggle button ────────────────────────────────── */}
       <button
         onClick={() => setOpen(!open)}
-        className="w-14 h-14 bg-gold hover:bg-gold-light text-obsidian rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(201,169,110,0.4)] hover:scale-105 transition-all"
+        className="w-14 h-14 bg-orange-500 hover:bg-orange-500-light text-obsidian rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(255,140,0,0.4)] hover:scale-105 transition-all"
         aria-label={open ? "Close chat" : "Open chat"}
       >
         <AnimatePresence mode="wait">

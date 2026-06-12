@@ -40,7 +40,7 @@ export function Navbar() {
     <nav
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-obsidian/95 backdrop-blur-md border-b border-gold-subtle shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+          ? "bg-white/95 backdrop-blur-md border-b border-orange-subtle shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
           : "bg-transparent"
       }`}
     >
@@ -51,7 +51,7 @@ export function Navbar() {
           href="/"
           className="font-display text-2xl tracking-tight shrink-0 hover:opacity-80 transition-opacity"
         >
-          Omni<span className="text-gold">Qubits</span>
+          Omni<span className="text-orange-500">Qubits</span>
         </Link>
 
         {/* Desktop links */}
@@ -62,13 +62,13 @@ export function Navbar() {
               href={href}
               className={`text-xs tracking-[0.18em] uppercase transition-colors duration-200 ${
                 isActive(href)
-                  ? "text-gold"
-                  : "text-cream/60 hover:text-gold"
+                  ? "text-orange-500"
+                  : "text-black/70 hover:text-orange-500"
               }`}
             >
               {label}
               {isActive(href) && (
-                <span className="block h-px bg-gold mt-0.5" />
+                <span className="block h-px bg-orange-500 mt-0.5" />
               )}
             </Link>
           ))}
@@ -77,7 +77,7 @@ export function Navbar() {
         {/* Desktop CTA */}
         <Link
           href="/contact"
-          className="hidden md:inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-obsidian text-xs tracking-[0.15em] uppercase font-medium px-5 py-2.5 transition-colors shrink-0"
+          className="hidden md:inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-500-light text-white text-xs tracking-[0.15em] uppercase font-medium px-5 py-2.5 transition-colors shrink-0"
         >
           Start a Project
         </Link>
@@ -85,7 +85,7 @@ export function Navbar() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-cream hover:text-gold transition-colors p-1"
+          className="md:hidden text-black hover:text-orange-500 transition-colors p-1"
           aria-label="Toggle navigation"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
@@ -98,13 +98,13 @@ export function Navbar() {
           open ? "max-h-screen opacity-100" : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
-        <div className="bg-obsidian-2 border-t border-gold-subtle px-6 py-6 flex flex-col gap-4">
+        <div className="bg-white border-t border-orange-subtle px-6 py-6 flex flex-col gap-4">
           {navLinks.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
               className={`text-sm tracking-[0.15em] uppercase transition-colors ${
-                isActive(href) ? "text-gold" : "text-cream/70 hover:text-gold"
+                isActive(href) ? "text-orange-500" : "text-black/80 hover:text-orange-500"
               }`}
             >
               {label}
@@ -112,7 +112,7 @@ export function Navbar() {
           ))}
           <Link
             href="/contact"
-            className="mt-3 inline-flex items-center justify-center bg-gold hover:bg-gold-light text-obsidian text-xs tracking-[0.15em] uppercase font-medium px-5 py-3 transition-colors"
+            className="mt-3 inline-flex items-center justify-center bg-orange-500 hover:bg-orange-500-light text-white text-xs tracking-[0.15em] uppercase font-medium px-5 py-3 transition-colors"
           >
             Start a Project
           </Link>

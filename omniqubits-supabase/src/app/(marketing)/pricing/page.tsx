@@ -100,21 +100,21 @@ const faqs = [
 // ─────────────────────────────────────────────────────────────
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-obsidian text-cream">
+    <div className="min-h-screen bg-white text-black">
 
       {/* ── Hero ──────────────────────────────────────────── */}
       <section className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(201,169,110,0.06)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(255,140,0,0.06)_0%,transparent_70%)]" />
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <FadeUp>
             <div className="flex items-center justify-center gap-4 mb-6">
-              <span className="h-px w-12 bg-gold/60" />
-              <span className="text-gold text-xs tracking-[0.3em] uppercase">Investment</span>
-              <span className="h-px w-12 bg-gold/60" />
+              <span className="h-px w-12 bg-orange-500/60" />
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Investment</span>
+              <span className="h-px w-12 bg-orange-500/60" />
             </div>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl mb-6">
               Transparent<br />
-              <em className="text-gold font-light">Pricing</em>
+              <em className="text-orange-500 font-light">Pricing</em>
             </h1>
             <p className="text-muted-oq text-lg max-w-2xl mx-auto leading-relaxed">
               Choose the engagement model that fits your ambitions. Every plan includes dedicated
@@ -133,38 +133,38 @@ export default function PricingPage() {
                 <div
                   className={`relative border flex flex-col transition-colors ${
                     plan.featured
-                      ? "border-gold bg-obsidian-3 shadow-[0_0_40px_rgba(201,169,110,0.1)] md:-translate-y-2"
-                      : "border-gold/15 bg-obsidian hover:border-gold/35"
+                      ? "border-orange-500 bg-white-3 shadow-[0_0_40px_rgba(255,140,0,0.1)] md:-translate-y-2"
+                      : "border-orange-500/15 bg-white hover:border-orange-500/35"
                   }`}
                 >
                   {plan.featured && (
-                    <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-gold text-obsidian text-xs tracking-[0.2em] uppercase px-4 py-1 whitespace-nowrap">
+                    <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-orange-500 text-obsidian text-xs tracking-[0.2em] uppercase px-4 py-1 whitespace-nowrap">
                       Most Popular
                     </div>
                   )}
 
                   <div className="p-8">
-                    <div className="text-gold text-xs tracking-[0.25em] uppercase mb-2">{plan.tier}</div>
+                    <div className="text-orange-500 text-xs tracking-[0.25em] uppercase mb-2">{plan.tier}</div>
 
                     {/* Price — $ prefix only for numeric prices */}
                     <div className="flex items-start gap-0.5 mb-1">
                       {plan.price !== "Custom" && (
-                        <span className="font-display text-gold text-xl mt-2">$</span>
+                        <span className="font-display text-orange-500 text-xl mt-2">$</span>
                       )}
-                      <span className="font-display text-4xl text-cream leading-none">
+                      <span className="font-display text-4xl text-black leading-none">
                         {plan.price}
                       </span>
                     </div>
 
-                    <div className="text-muted-oq text-xs tracking-wide mb-6 pb-6 border-b border-gold/15">
+                    <div className="text-muted-oq text-xs tracking-wide mb-6 pb-6 border-b border-orange-500/15">
                       {plan.period}
                     </div>
-                    <div className="font-display text-lg italic text-cream-2 mb-6">{plan.tagline}</div>
+                    <div className="font-display text-lg italic text-black-2 mb-6">{plan.tagline}</div>
 
                     <ul className="space-y-2.5 mb-8">
                       {plan.features.map((f) => (
                         <li key={f} className="flex items-start gap-2.5 text-muted-oq text-sm">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gold shrink-0 mt-0.5">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-orange-500 shrink-0 mt-0.5">
                             <path d="M20 6L9 17l-5-5" />
                           </svg>
                           {f}
@@ -184,8 +184,8 @@ export default function PricingPage() {
                       href="/contact"
                       className={`block w-full text-center py-3 text-xs tracking-[0.15em] uppercase transition-all ${
                         plan.featured
-                          ? "bg-gold text-obsidian hover:bg-gold-light"
-                          : "border border-gold/35 text-cream hover:border-gold hover:text-gold"
+                          ? "bg-orange-500 text-obsidian hover:bg-orange-500-light"
+                          : "border border-orange-500/35 text-black hover:border-orange-500 hover:text-orange-500"
                       }`}
                     >
                       {plan.cta}
@@ -199,17 +199,17 @@ export default function PricingPage() {
       </section>
 
       {/* ── Always Included ───────────────────────────────── */}
-      <section className="py-24 px-6 bg-obsidian-2">
+      <section className="py-24 px-6 bg-white-2">
         <div className="max-w-4xl mx-auto">
           <FadeUp className="text-center mb-16">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <span className="h-px w-12 bg-gold/60" />
-              <span className="text-gold text-xs tracking-[0.3em] uppercase">Always Included</span>
-              <span className="h-px w-12 bg-gold/60" />
+              <span className="h-px w-12 bg-orange-500/60" />
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Always Included</span>
+              <span className="h-px w-12 bg-orange-500/60" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl">
               The OmniQubits<br />
-              <em className="text-gold font-light">Guarantee</em>
+              <em className="text-orange-500 font-light">Guarantee</em>
             </h2>
           </FadeUp>
 
@@ -217,12 +217,12 @@ export default function PricingPage() {
             {included.map((item) => (
               <FadeUpItem key={item.title}>
                 <div className="text-center p-6">
-                  <div className="w-12 h-12 border border-gold/35 mx-auto mb-4 flex items-center justify-center">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-gold">
+                  <div className="w-12 h-12 border border-orange-500/35 mx-auto mb-4 flex items-center justify-center">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-orange-500">
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                   </div>
-                  <h3 className="font-display text-lg text-cream mb-2">{item.title}</h3>
+                  <h3 className="font-display text-lg text-black mb-2">{item.title}</h3>
                   <p className="text-muted-oq text-sm">{item.description}</p>
                 </div>
               </FadeUpItem>
@@ -236,20 +236,20 @@ export default function PricingPage() {
         <div className="max-w-3xl mx-auto">
           <FadeUp className="text-center mb-16">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <span className="h-px w-12 bg-gold/60" />
-              <span className="text-gold text-xs tracking-[0.3em] uppercase">Questions</span>
-              <span className="h-px w-12 bg-gold/60" />
+              <span className="h-px w-12 bg-orange-500/60" />
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Questions</span>
+              <span className="h-px w-12 bg-orange-500/60" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl">
-              Common <em className="text-gold font-light">Inquiries</em>
+              Common <em className="text-orange-500 font-light">Inquiries</em>
             </h2>
           </FadeUp>
 
           <FadeUpGroup className="space-y-4" stagger={0.06}>
             {faqs.map((faq) => (
               <FadeUpItem key={faq.question}>
-                <div className="border border-gold/15 bg-obsidian-2 p-6 hover:border-gold/35 transition-colors">
-                  <h3 className="font-display text-lg text-cream mb-2">{faq.question}</h3>
+                <div className="border border-orange-500/15 bg-white-2 p-6 hover:border-orange-500/35 transition-colors">
+                  <h3 className="font-display text-lg text-black mb-2">{faq.question}</h3>
                   <p className="text-muted-oq text-sm leading-relaxed">{faq.answer}</p>
                 </div>
               </FadeUpItem>
@@ -259,11 +259,11 @@ export default function PricingPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────── */}
-      <section className="py-24 px-6 bg-obsidian-2">
+      <section className="py-24 px-6 bg-white-2">
         <FadeUp className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-4xl md:text-5xl mb-6">
             Not Sure Which<br />
-            <em className="text-gold font-light">Plan is Right?</em>
+            <em className="text-orange-500 font-light">Plan is Right?</em>
           </h2>
           <p className="text-muted-oq text-sm mb-10">
             Book a free consultation and we&apos;ll help you find the perfect fit for your business goals.
@@ -271,13 +271,13 @@ export default function PricingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="bg-gold text-obsidian px-8 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-gold-light hover:-translate-y-0.5 transition-all"
+              className="bg-orange-500 text-obsidian px-8 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-orange-500-light hover:-translate-y-0.5 transition-all"
             >
               Book a Call
             </Link>
             <Link
               href="/services"
-              className="border border-gold/35 text-cream px-8 py-4 text-sm tracking-[0.15em] uppercase hover:border-gold hover:text-gold hover:-translate-y-0.5 transition-all"
+              className="border border-orange-500/35 text-black px-8 py-4 text-sm tracking-[0.15em] uppercase hover:border-orange-500 hover:text-orange-500 hover:-translate-y-0.5 transition-all"
             >
               Explore Services
             </Link>
