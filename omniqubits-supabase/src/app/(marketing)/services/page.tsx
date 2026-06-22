@@ -208,7 +208,7 @@ export default function ServicesPage() {
                 <em className="text-orange-500 font-light">Approach</em>
               </h2>
               <p className="text-muted-oq text-sm leading-relaxed mb-8">
-                We don't believe in cookie-cutter solutions. Every business is unique, and we build
+                We don&apos;t believe in cookie-cutter solutions. Every business is unique, and we build
                 tailored strategies that align with your specific goals, market position, and growth trajectory.
               </p>
               <div className="grid grid-cols-2 gap-4">
@@ -251,7 +251,7 @@ export default function ServicesPage() {
             Ready to <em className="text-orange-500 font-light">Transform</em>?
           </h2>
           <p className="text-muted-oq text-sm mb-10">
-            Let's discuss how we can help your business grow. Schedule a free consultation today.
+            Let&apos;s discuss how we can help your business grow. Schedule a free consultation today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="bg-orange-500 text-obsidian px-8 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-orange-500-light hover:-translate-y-0.5 transition-all">

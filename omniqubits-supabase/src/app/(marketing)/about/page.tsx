@@ -218,7 +218,7 @@ export default function AboutPage() {
               </h2>
               <p className="text-muted-oq text-sm leading-relaxed mb-8">
                 We hold ourselves to the highest engineering standards. Every line of code, every campaign,
-                and every strategy undergoes rigorous testing and review. We don't just meet expectations —
+                and every strategy undergoes rigorous testing and review. We don&apos;t just meet expectations —
                 we set new benchmarks.
               </p>
               <ul className="space-y-3">

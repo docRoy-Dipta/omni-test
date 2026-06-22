@@ -4,17 +4,13 @@ import { z } from "zod";
 
 /**
  * Contact form submission schema.
- * Fields: name, email, company, message
- */
-
-/**
- * Still contact number is not added. Need to add contact number field in the future if required.
- * For now, we can use email for contact purposes.
+ * Fields: name, email, phone, company, message
  */
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required").max(100),
   email: z.string().email("Please enter a valid email address"),
+  phone: z.string().min(1, "Contact number is required").max(40),
   company: z.string().max(100).optional(),
   message: z.string().min(1, "Message is required").max(2000),
 });
@@ -31,7 +27,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { name, email, company, message } = parsed.data;
+    const { name, email, phone, company, message } = parsed.data;
 
     // Get Supabase credentials from environment
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -39,7 +35,13 @@ export async function POST(req: NextRequest) {
 
     // Demo mode if not configured
     if (!supabaseUrl || !serviceKey) {
-      console.log("[contact] Demo mode - Form submission:", { name, email, company, message: message.substring(0, 50) + "..." });
+      console.log("[contact] Demo mode - Form submission:", {
+        name,
+        email,
+        phone,
+        company,
+        message: message.substring(0, 50) + "...",
+      });
       return NextResponse.json(
         {
           success: true,
@@ -61,6 +63,7 @@ export async function POST(req: NextRequest) {
       .insert({
         name,
         email,
+        phone,
         company: company || null,
         message,
       })
@@ -85,7 +88,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { success: false, error: message },
-      { status: 501 }
+      { status: 500 }
     );
   }
 }

@@ -46,37 +46,39 @@ create table if not exists pricing_plans (
   created_at    timestamptz default now()
 );
 
--- ── Contact Inquiries Table ───────────────────────────────
--- Includes phone number and budget range fields
-create table if not exists contact_inquiries (
-  id           uuid primary key default gen_random_uuid(),
-  name         text not null,
-  email        text not null,
-  phone        text,
-  company      text,
-  service      text,
-  budget       text,
-  message      text not null,
-  status       text default 'NEW' check (status in ('NEW','REVIEWED','REPLIED','CLOSED')),
-  created_at   timestamptz default now()
+-- ── Contacts Table ────────────────────────────────────────
+create table if not exists contacts (
+  id         uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  name       text not null,
+  email      text not null,
+  phone      text not null,
+  company    text,
+  message    text not null
 );
 
--- ── If the table already exists, add the new columns ──────
--- (Run these only if you already created the table without phone/budget)
-alter table contact_inquiries add column if not exists phone  text;
-alter table contact_inquiries add column if not exists budget text;
+-- If the contacts table already existed before phone was added, keep it in sync.
+alter table contacts add column if not exists phone text;
+
+-- Contact forms should allow returning prospects to submit again.
+alter table contacts drop constraint if exists email;
+alter table contacts drop constraint if exists phone;
+
+create index if not exists contacts_created_at_idx on contacts (created_at desc);
+create index if not exists contacts_email_idx on contacts (email);
+create index if not exists contacts_phone_idx on contacts (phone);
 
 -- ── Row Level Security (RLS) ──────────────────────────────
 alter table services          enable row level security;
 alter table testimonials       enable row level security;
 alter table pricing_plans      enable row level security;
-alter table contact_inquiries  enable row level security;
+alter table contacts           enable row level security;
 
 -- Drop existing policies first (safe to re-run)
 drop policy if exists "Public can read services"       on services;
 drop policy if exists "Public can read testimonials"   on testimonials;
 drop policy if exists "Public can read pricing_plans"  on pricing_plans;
-drop policy if exists "Anyone can submit contact form" on contact_inquiries;
+drop policy if exists "Anyone can submit contact form" on contacts;
 
 create policy "Public can read services"
   on services for select using (true);
@@ -88,7 +90,11 @@ create policy "Public can read pricing_plans"
   on pricing_plans for select using (true);
 
 create policy "Anyone can submit contact form"
-  on contact_inquiries for insert with check (true);
+  on contacts for insert with check (true);
+
+-- Least-privilege grants for public website access.
+grant select on services, testimonials, pricing_plans to anon;
+grant insert on contacts to anon;
 
 -- Confirm tables
 select table_name from information_schema.tables

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 /**
  * Contact Page - Standalone contact form with API submission
@@ -22,8 +21,9 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     company: "",
-    message: ""
+    message: "",
   });
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -53,12 +53,18 @@ export default function ContactPage() {
 
       if (result.success) {
         setFormStatus("success");
-        setFormData({ name: "", email: "", company: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          message: "",
+        });
       } else {
         setFormStatus("error");
         setErrorMessage(result.error || "Something went wrong. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setFormStatus("error");
       setErrorMessage("Network error. Please check your connection and try again.");
     }
@@ -77,7 +83,7 @@ export default function ContactPage() {
           >
             <motion.div variants={fadeUp} className="flex items-center justify-center gap-4 mb-6">
               <span className="h-px w-12 bg-orange-500/60" />
-              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Let's Begin</span>
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Let&apos;s Begin</span>
               <span className="h-px w-12 bg-orange-500/60" />
             </motion.div>
 
@@ -87,8 +93,8 @@ export default function ContactPage() {
             </motion.h1>
 
             <motion.p variants={fadeUp} className="text-muted-oq text-lg max-w-2xl mx-auto leading-relaxed">
-              Whether you're a startup ready to launch or an enterprise looking to evolve —
-              we'd love to hear your story. Reach out and let's craft something exceptional together.
+              Whether you&apos;re a startup ready to launch or an enterprise looking to evolve —
+              we&apos;d love to hear your story. Reach out and let&apos;s craft something exceptional together.
             </motion.p>
           </motion.div>
         </div>
@@ -111,12 +117,12 @@ export default function ContactPage() {
                   <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Get in Touch</span>
                 </div>
                 <h2 className="font-display text-3xl md:text-4xl mb-6">
-                  We'd Love to<br />
+                  We&apos;d Love to<br />
                   <em className="text-orange-500 font-light">Hear From You</em>
                 </h2>
                 <p className="text-muted-oq text-sm leading-relaxed">
                   Every great partnership begins with a conversation. Tell us about your challenges,
-                  your goals, and what success looks like for you. We'll listen, ask the right questions,
+                  your goals, and what success looks like for you. We&apos;ll listen, ask the right questions,
                   and propose a path forward.
                 </p>
               </motion.div>
@@ -180,7 +186,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="font-display text-2xl text-black mb-3">Message Received!</h3>
                   <p className="text-muted-oq text-sm mb-6">
-                    Thank you for reaching out. We'll be in touch within 24 business hours.
+                    Thank you for reaching out. We&apos;ll be in touch within 24 business hours.
                   </p>
                   <button
                     onClick={() => setFormStatus("idle")}
@@ -212,6 +218,19 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="you@company.com"
+                      required
+                      className="w-full bg-white border border-orange-500/15 text-black px-4 py-3 text-sm focus:outline-none focus:border-orange-500 transition-colors placeholder:text-muted-oq/50"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-muted-oq text-xs tracking-[0.2em] uppercase">Contact Number *</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="+1 555 123 4567"
                       required
                       className="w-full bg-white border border-orange-500/15 text-black px-4 py-3 text-sm focus:outline-none focus:border-orange-500 transition-colors placeholder:text-muted-oq/50"
                     />
@@ -279,15 +298,15 @@ export default function ContactPage() {
             {[
               {
                 title: "Holistic Approach",
-                description: "We don't work in silos. Marketing, technology, and customer experience are unified in our strategy."
+                description: "We don't work in silos. Marketing, technology, and customer experience are unified in our strategy.",
               },
               {
                 title: "Proven Results",
-                description: "200+ clients served, 98% retention rate, and 5x average ROI. We deliver measurable outcomes."
+                description: "200+ clients served, 98% retention rate, and 5x average ROI. We deliver measurable outcomes.",
               },
               {
                 title: "Future-Ready",
-                description: "Our quantum-inspired approach means we're always thinking ahead, preparing your business for what's next."
+                description: "Our quantum-inspired approach means we're always thinking ahead, preparing your business for what's next.",
               }
             ].map((item, i) => (
               <motion.div
