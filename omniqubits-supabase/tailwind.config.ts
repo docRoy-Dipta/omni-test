@@ -2,7 +2,8 @@ import type { Config } from "tailwindcss";
 
 // ─────────────────────────────────────────────────────────────
 // OmniQubits Design System — White + Orange Theme
-// All tokens match what is used across every page file.
+// Priority: Clean, readable, honest token names.
+// Every class used in every page file is defined here.
 // ─────────────────────────────────────────────────────────────
 
 const config: Config = {
@@ -21,51 +22,33 @@ const config: Config = {
     },
     extend: {
       colors: {
-        // Compatibility aliases used by existing page classes.
-        orange: {
-          "500-light": "#FFB347",
-          "500-dark": "#CC7000",
-          "500-subtle": "rgba(255,140,0,0.12)",
-          "500-glow": "rgba(255,140,0,0.35)",
-        },
-        obsidian: {
-          DEFAULT: "#111111",
-          2: "#F8F7F5",
-          3: "#F0EEE9",
-          4: "#E5E2DC",
-          5: "#D6D2CA",
-        },
-        gold: {
-          DEFAULT: "#FF8C00",
-          light: "#FFB347",
-          dark: "#CC7000",
-        },
-
-        // ── OmniQubits Brand Colors ──────────────────────
-        // Orange accent system (replaces gold from dark theme)
+        // ── Orange Brand Accent ───────────────────────────
+        // Used as: text-brand, bg-brand, border-brand
         brand: {
-          DEFAULT: "#FF8C00",   // primary orange — used as text-brand, bg-brand
-          light:   "#FFB347",   // lighter orange for hover states
-          dark:    "#CC7000",   // darker orange for scrollbar, depth
-          subtle:  "rgba(255,140,0,0.12)",  // very faint orange for backgrounds
-          glow:    "rgba(255,140,0,0.35)",  // orange glow for borders/shadows
+          DEFAULT: "#FF8C00",            // primary orange
+          light:   "#FFB347",            // hover / lighter shade
+          dark:    "#CC7000",            // depth / scrollbar thumb
+          subtle:  "rgba(255,140,0,0.12)",  // faint bg tint
+          glow:    "rgba(255,140,0,0.35)",  // glow borders / shadows
         },
 
-        // Off-white surface scale (light → slightly tinted)
+        // ── Surface Scale (white → warm grey) ────────────
+        // Used as: bg-surface, bg-surface-2, bg-surface-3 etc.
         surface: {
-          DEFAULT: "#FFFFFF",   // pure white  — bg-surface
-          2:       "#F8F7F5",   // warm off-white — bg-surface-2
-          3:       "#F0EEE9",   // slightly warm grey — bg-surface-3
-          4:       "#E5E2DC",   // medium warm grey — bg-surface-4
-          5:       "#D6D2CA",   // darker warm grey — bg-surface-5
+          DEFAULT: "#FFFFFF",   // pure white
+          2:       "#F8F7F5",   // warm off-white
+          3:       "#F0EEE9",   // light warm grey
+          4:       "#E5E2DC",   // medium warm grey
+          5:       "#D6D2CA",   // deeper warm grey
         },
 
-        // Text scale
+        // ── Ink Scale (text) ──────────────────────────────
+        // Used as: text-ink, text-ink-2, text-ink-muted
         ink: {
-          DEFAULT: "#111111",   // near-black — text-ink
-          2:       "#333333",   // dark grey — text-ink-2
-          3:       "#555555",   // medium grey — text-ink-3
-          muted:   "#6B6B6B",   // muted label text — text-ink-muted
+          DEFAULT: "#111111",  // near-black body text
+          2:       "#333333",  // slightly lighter body
+          3:       "#555555",  // secondary text
+          muted:   "#6B7280",  // labels, captions, placeholder
         },
 
         // ── ShadCN Required Semantic Tokens ──────────────
@@ -116,6 +99,14 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
 
+      boxShadow: {
+        "brand-sm": "0 0 15px rgba(255,140,0,0.15)",
+        "brand-md": "0 0 30px rgba(255,140,0,0.20)",
+        "brand-lg": "0 0 50px rgba(255,140,0,0.25)",
+        "card":     "0 2px 16px rgba(0,0,0,0.06)",
+        "card-hover": "0 4px 32px rgba(0,0,0,0.10)",
+      },
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -160,12 +151,6 @@ const config: Config = {
         marquee:          "marquee 22s linear infinite",
         "pulse-slow":     "pulse-slow 4s ease-in-out infinite",
         "spin-slow":      "spin-slow 12s linear infinite",
-      },
-
-      boxShadow: {
-        "brand-sm": "0 0 15px rgba(255,140,0,0.15)",
-        "brand-md": "0 0 30px rgba(255,140,0,0.2)",
-        "brand-lg": "0 0 50px rgba(255,140,0,0.25)",
       },
     },
   },

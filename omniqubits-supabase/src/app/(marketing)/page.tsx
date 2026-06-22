@@ -20,13 +20,39 @@ const stagger = {
 // ─────────────────────────────────────────────────────────────
 // Static data
 // ─────────────────────────────────────────────────────────────
-const services = [
-  { icon: "✦", number: "01", title: "Growth Marketing",         description: "Full-funnel campaigns that convert. SEO, paid media, content, email automation, and performance analytics working in concert to multiply your reach." },
-  { icon: "◈", number: "02", title: "Brand Strategy",           description: "Identity systems, positioning frameworks, and messaging architecture that carve out an unassailable place in your market's memory." },
-  { icon: "⬡", number: "03", title: "Customer Support Systems", description: "Omnichannel support infrastructure — live chat, AI triage, CRM integration, and SLA management — that turns support into a loyalty engine." },
-  { icon: "⊕", number: "04", title: "Technology Solutions",     description: "Custom software, cloud architecture, API integrations, and AI implementation designed to automate and scale your core operations." },
-  { icon: "◎", number: "05", title: "Data & Analytics",         description: "Intelligence dashboards, predictive modelling, and behavioral analytics that surface the insights leaders need to make confident decisions." },
-  { icon: "⟡", number: "06", title: "Digital Transformation",   description: "End-to-end business transformation consulting — from process mapping to implementation — that future-proofs your organisation." },
+const servicePillars = [
+  {
+    icon: "◎",
+    number: "01",
+    title: "AI & Automation",
+    description:
+      "Chatbots, workflow automation, AI integrations, and intelligent systems that remove repetitive work from your team.",
+    includes: ["AI chatbots", "Workflow automation", "Machine learning"],
+  },
+  {
+    icon: "✦",
+    number: "02",
+    title: "Growth Marketing",
+    description:
+      "SEO, paid campaigns, content, email, and conversion funnels built to generate qualified leads and measurable revenue.",
+    includes: ["SEO and ads", "Email funnels", "Conversion strategy"],
+  },
+  {
+    icon: "⊕",
+    number: "03",
+    title: "Web & Technology",
+    description:
+      "Fast websites, SaaS platforms, APIs, dashboards, and cloud systems designed to support serious business operations.",
+    includes: ["Web apps", "SaaS builds", "Dashboards and APIs"],
+  },
+  {
+    icon: "⬡",
+    number: "04",
+    title: "Customer Experience",
+    description:
+      "CRM, support systems, live chat, and customer journeys that help prospects and customers get answers faster.",
+    includes: ["CRM setup", "Support systems", "Customer journeys"],
+  },
 ];
 
 const pricing = [
@@ -59,6 +85,56 @@ const testimonials = [
 const stats        = [{ value: "200+", label: "Global Clients" }, { value: "98%", label: "Client Retention" }, { value: "12+", label: "Countries Served" }, { value: "5×", label: "Avg. ROI Growth" }];
 const marqueeItems = ["Marketing Strategy", "Customer Experience", "Brand Identity", "Technology Solutions", "Growth Engineering", "Data Analytics", "Digital Transformation", "AI Integration"];
 
+const whyUs = [
+  {
+    title: "One Connected Team",
+    description:
+      "Strategy, design, engineering, automation, and marketing stay connected so your growth system does not break between handoffs.",
+  },
+  {
+    title: "Business-First Execution",
+    description:
+      "Every recommendation starts with your revenue goals, customer journey, and operational bottlenecks.",
+  },
+  {
+    title: "Built to Measure",
+    description:
+      "We define clear KPIs early, then use dashboards and reporting to show what is improving and what needs attention.",
+  },
+  {
+    title: "Global Delivery",
+    description:
+      "We support startups, scale-ups, and enterprises across markets with practical systems that can grow with them.",
+  },
+];
+
+const process = [
+  {
+    step: "01",
+    title: "Discover",
+    description:
+      "We learn your business, audience, offers, tools, and current blockers before suggesting a solution.",
+  },
+  {
+    step: "02",
+    title: "Design",
+    description:
+      "We map the strategy, customer journey, technical requirements, and success metrics.",
+  },
+  {
+    step: "03",
+    title: "Build",
+    description:
+      "We create the campaigns, automations, pages, systems, and integrations in focused delivery cycles.",
+  },
+  {
+    step: "04",
+    title: "Improve",
+    description:
+      "We review performance, remove friction, and keep improving the system after launch.",
+  },
+];
+
 // ─────────────────────────────────────────────────────────────
 // Page
 // ─────────────────────────────────────────────────────────────
@@ -81,25 +157,25 @@ export default function HomePage() {
             </motion.div>
 
             <motion.h1 variants={fadeUp} className="font-display text-6xl md:text-7xl lg:text-8xl leading-[1.05] tracking-tight mb-6">
-              Beyond the<br />
-              <em className="text-orange-500 font-light">Horizon of</em><br />
-              Innovation
+              AI Systems That<br />
+              <em className="text-orange-500 font-light">Grow, Support &</em><br />
+              Scale Businesses
             </motion.h1>
 
             <motion.p variants={fadeUp} className="font-display text-xl md:text-2xl text-black/80 italic opacity-70 mb-6">
-              Marketing · Customer Support · Technology Solutions
+              AI Automation · Growth Marketing · Web & SaaS Systems
             </motion.p>
 
             <motion.p variants={fadeUp} className="max-w-xl mx-auto text-black/60 text-base leading-relaxed mb-10">
-              OmniQubits harnesses a limitless, all-encompassing approach to business transformation — inspired by quantum computing, built for the future-forward enterprise.
+              OmniQubits builds AI-powered marketing, customer support, and software systems that help ambitious teams generate leads, automate work, and improve customer experience.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-500-light text-white text-sm tracking-[0.15em] uppercase">
-                <Link href="#services">Explore Services</Link>
+                <Link href="#services">Explore Solutions</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-orange-500/50 text-black hover:border-orange-500 hover:text-orange-600">
-                <Link href="/contact">Talk to Us</Link>
+                <Link href="/contact">Start a Project</Link>
               </Button>
             </motion.div>
 
@@ -135,20 +211,20 @@ export default function HomePage() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className="h-px w-7 bg-orange-500/60" />
-                <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">What We Do</span>
+                <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">What We Build</span>
               </div>
               <h2 className="font-display text-4xl md:text-5xl">
-                Precision-Built<br />
-                <em className="text-orange-500 font-light">Services</em>
+                Four Connected<br />
+                <em className="text-orange-500 font-light">Growth Pillars</em>
               </h2>
             </div>
             <p className="text-muted-color text-sm leading-relaxed">
-              Every service is engineered to compound growth — from acquiring new customers to retaining them with world-class support and cutting-edge technology.
+              Visitors should not need to decode agency language. These four pillars explain the main ways OmniQubits helps clients grow, automate, and serve customers better.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-orange-500-subtle border border-orange-500-subtle">
-            {services.map((svc, i) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-orange-500-subtle border border-orange-500-subtle">
+            {servicePillars.map((svc, i) => (
               <motion.div
                 key={i}
                 initial="hidden"
@@ -164,9 +240,14 @@ export default function HomePage() {
                 <div className="font-display text-xs tracking-[0.2em] text-orange-500/50 mb-2">{svc.number}</div>
                 <h3 className="font-display text-xl text-black mb-3">{svc.title}</h3>
                 <p className="text-muted-color text-sm leading-relaxed mb-4">{svc.description}</p>
-                <span className="inline-flex items-center gap-2 text-orange-500 text-xs tracking-[0.15em] uppercase opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                  Learn More <ArrowRight size={12} />
-                </span>
+                <ul className="space-y-2">
+                  {svc.includes.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-muted-color text-xs">
+                      <span className="text-orange-500 mt-0.5 shrink-0">◆</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             ))}
           </div>
@@ -179,7 +260,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── About ─────────────────────────────────────────── */}
+      {/* ── Why OmniQubits ───────────────────────────────── */}
       <section id="about" className="py-24 md:py-32 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
@@ -204,30 +285,65 @@ export default function HomePage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
               <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
                 <span className="h-px w-7 bg-orange-500/60" />
-                <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Who We Are</span>
+                <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Why OmniQubits</span>
               </motion.div>
               <motion.h2 variants={fadeUp} className="font-display text-4xl md:text-5xl mb-6">
-                A Global Force for<br />
-                <em className="text-orange-500 font-light">Business Evolution</em>
+                Strategy, Systems &<br />
+                <em className="text-orange-500 font-light">Execution Together</em>
               </motion.h2>
               <motion.p variants={fadeUp} className="text-muted-color text-sm leading-relaxed mb-8">
-                OmniQubits was founded on a simple conviction: that the boundaries between marketing, customer experience, and technology should dissolve — because the businesses that win treat them as one unified discipline.
+                Many teams buy marketing, software, and support tools separately. OmniQubits connects them into one practical growth system, so your campaigns, data, automations, and customer experience work together.
               </motion.p>
-              <motion.ul variants={fadeUp} className="space-y-3">
-                {[
-                  "Operating across 12+ countries with startups, scale-ups, and enterprises.",
-                  "Interdisciplinary teams of strategists, engineers, data scientists, and growth operators.",
-                  "Every engagement starts with deep diagnostic work before we prescribe any solution.",
-                  "Inspired by quantum principles: superposition of ideas, entanglement of strategy and execution.",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-muted-color text-sm">
-                    <span className="text-orange-500 text-xs mt-1 shrink-0">◆</span>
-                    {item}
-                  </li>
+              <motion.div variants={fadeUp} className="grid sm:grid-cols-2 gap-4">
+                {whyUs.map((item) => (
+                  <div key={item.title} className="border border-orange-500/15 bg-white-2 p-5">
+                    <h3 className="font-display text-lg text-black mb-2">{item.title}</h3>
+                    <p className="text-muted-color text-sm leading-relaxed">{item.description}</p>
+                  </div>
                 ))}
-              </motion.ul>
+              </motion.div>
             </motion.div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* ── Process ───────────────────────────────────────── */}
+      <section id="process" className="py-24 md:py-32 bg-white-2">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-7 bg-orange-500/60" />
+              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">How We Work</span>
+              <span className="h-px w-7 bg-orange-500/60" />
+            </div>
+            <h2 className="font-display text-4xl md:text-5xl mb-4">
+              From First Call to<br />
+              <em className="text-orange-500 font-light">Measurable Improvement</em>
+            </h2>
+            <p className="text-muted-color text-sm max-w-xl mx-auto">
+              The process is simple on purpose. First we understand the business, then we design the system, build it, and keep improving it with data.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            {process.map((item, i) => (
+              <motion.div
+                key={item.step}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                className="relative border border-orange-500/15 bg-white p-6"
+              >
+                <div className="font-display text-5xl text-orange-500/20 mb-4">{item.step}</div>
+                <h3 className="font-display text-xl text-black mb-2">{item.title}</h3>
+                <p className="text-muted-color text-sm leading-relaxed">{item.description}</p>
+                {i < process.length - 1 && (
+                  <ArrowRight className="hidden md:block absolute top-8 -right-4 text-orange-500/30" size={20} />
+                )}
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

@@ -1,329 +1,461 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import {
+  Mail, Phone, Globe, Clock,
+  CheckCircle2, ArrowRight, X,
+} from "lucide-react";
 
-/**
- * Contact Page - Standalone contact form with API submission
- * Design matches omniqubits.html luxury theme.
- */
-
+// ─────────────────────────────────────────────────────────────
+// Animation
+// ─────────────────────────────────────────────────────────────
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  hidden:  { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 };
-
 const stagger = {
-  visible: { transition: { staggerChildren: 0.1 } }
+  visible: { transition: { staggerChildren: 0.09 } },
 };
 
-export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    message: "",
-  });
-  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+// ─────────────────────────────────────────────────────────────
+// Data
+// ─────────────────────────────────────────────────────────────
+const contactInfo = [
+  { icon: <Mail size={15} />,   label: "Email",         value: "hello@omniqubits.com",              href: "mailto:hello@omniqubits.com" },
+  { icon: <Globe size={15} />,  label: "Global HQ",     value: "Serving clients across 12+ countries", href: null },
+  { icon: <Clock size={15} />,  label: "Response Time", value: "Within 24 business hours",           href: null },
+];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
+const budgetOptions = [
+  "Under $1,000 / month",
+  "$1,000 – $3,000 / month",
+  "$3,000 – $5,000 / month",
+  "$5,000 – $10,000 / month",
+  "Over $10,000 / month",
+  "Not sure yet — let's discuss",
+];
+
+const serviceOptions = [
+  "AI & Automation",
+  "Growth Marketing",
+  "Web & Technology",
+  "Customer Experience",
+  "Full-Suite Engagement",
+  "Not sure — need advice",
+];
+
+const whyUs = [
+  {
+    title: "Holistic Approach",
+    desc:  "Marketing, technology, and customer experience unified in one strategy — no silos, no handoff gaps.",
+  },
+  {
+    title: "Proven Track Record",
+    desc:  "200+ clients served across 12+ countries with a 98% client retention rate.",
+  },
+  {
+    title: "Fast, Clear Communication",
+    desc:  "We respond within 24 hours and speak in plain language — no jargon, no guessing what is happening.",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────
+// Empty form state
+// ─────────────────────────────────────────────────────────────
+const EMPTY = {
+  name:    "",
+  email:   "",
+  phone:   "",
+  company: "",
+  service: "",
+  budget:  "",
+  message: "",
+};
+
+// ─────────────────────────────────────────────────────────────
+// Reusable field label
+// ─────────────────────────────────────────────────────────────
+function Label({ children }: { children: React.ReactNode }) {
+  return (
+    <label className="block text-ink-muted text-xs tracking-[0.18em] uppercase mb-1.5">
+      {children}
+    </label>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Shared input class
+// ─────────────────────────────────────────────────────────────
+const inputClass =
+  "w-full bg-surface border border-surface-4 text-ink px-4 py-3 text-sm " +
+  "focus:outline-none focus:border-brand transition-colors " +
+  "placeholder:text-ink-muted/50";
+
+const selectClass =
+  "w-full bg-surface border border-surface-4 text-ink px-4 py-3 text-sm " +
+  "focus:outline-none focus:border-brand transition-colors appearance-none cursor-pointer";
+
+// ─────────────────────────────────────────────────────────────
+// Page
+// ─────────────────────────────────────────────────────────────
+export default function ContactPage() {
+  const [form,   setForm]   = useState(EMPTY);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errMsg, setErrMsg] = useState("");
+
+  const set = (field: keyof typeof EMPTY) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+      setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormStatus("loading");
-    setErrorMessage("");
+    setStatus("loading");
+    setErrMsg("");
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
+      const res  = await fetch("/api/contact", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify(form),
       });
+      const json = await res.json();
 
-      const result = await response.json();
-
-      if (result.success) {
-        setFormStatus("success");
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          company: "",
-          message: "",
-        });
+      if (json.success) {
+        setStatus("success");
+        setForm(EMPTY);   // clear all fields
       } else {
-        setFormStatus("error");
-        setErrorMessage(result.error || "Something went wrong. Please try again.");
+        setErrMsg(json.error ?? "Something went wrong. Please try again.");
+        setStatus("error");
       }
     } catch {
-      setFormStatus("error");
-      setErrorMessage("Network error. Please check your connection and try again.");
+      setErrMsg("Network error. Please check your connection and try again.");
+      setStatus("error");
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-black">
-      {/* Hero */}
-      <section className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(255,140,0,0.06)_0%,transparent_70%),radial-gradient(ellipse_40%_40%_at_20%_80%,rgba(255,140,0,0.04)_0%,transparent_60%),radial-gradient(ellipse_40%_40%_at_80%_20%,rgba(255,140,0,0.04)_0%,transparent_60%)]" />
-        <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-          >
-            <motion.div variants={fadeUp} className="flex items-center justify-center gap-4 mb-6">
-              <span className="h-px w-12 bg-orange-500/60" />
-              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Let&apos;s Begin</span>
-              <span className="h-px w-12 bg-orange-500/60" />
+    <div className="min-h-screen bg-surface text-ink">
+
+      {/* ── Hero ──────────────────────────────────────────── */}
+      <section className="pt-32 pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(255,140,0,0.06)_0%,transparent_70%)]" />
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <motion.div initial="hidden" animate="visible" variants={stagger}>
+
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-4 mb-6">
+              <span className="h-px w-10 bg-brand/50" />
+              <span className="text-brand text-xs tracking-[0.3em] uppercase">Let&apos;s Begin</span>
+              <span className="h-px w-10 bg-brand/50" />
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="font-display text-5xl md:text-6xl lg:text-7xl mb-6">
+            <motion.h1 variants={fadeUp} className="font-display text-5xl md:text-6xl lg:text-7xl mb-5">
               Start Your<br />
-              <em className="text-orange-500 font-light">Transformation</em>
+              <em className="text-brand font-light">Transformation</em>
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="text-muted-oq text-lg max-w-2xl mx-auto leading-relaxed">
-              Whether you&apos;re a startup ready to launch or an enterprise looking to evolve —
-              we&apos;d love to hear your story. Reach out and let&apos;s craft something exceptional together.
+            <motion.p variants={fadeUp} className="text-ink-muted text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+              Tell us about your business, challenges, and goals. We&apos;ll listen, ask the
+              right questions, and propose a practical path forward — no jargon, no pressure.
             </motion.p>
+
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Grid */}
-      <section className="py-24 px-4">
+      {/* ── Main grid ─────────────────────────────────────── */}
+      <section className="pb-24 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-16">
-            {/* Info Column */}
+          <div className="grid md:grid-cols-5 gap-12 md:gap-16">
+
+            {/* ── Left column — info ── */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={stagger}
+              initial="hidden" whileInView="visible"
+              viewport={{ once: true }} variants={stagger}
+              className="md:col-span-2"
             >
-              <motion.div variants={fadeUp} className="mb-10">
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="h-px w-12 bg-orange-500/60" />
-                  <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Get in Touch</span>
+              <motion.div variants={fadeUp} className="mb-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="h-px w-7 bg-brand/50" />
+                  <span className="text-brand text-xs tracking-[0.3em] uppercase">Contact Us</span>
                 </div>
-                <h2 className="font-display text-3xl md:text-4xl mb-6">
+                <h2 className="font-display text-3xl mb-4">
                   We&apos;d Love to<br />
-                  <em className="text-orange-500 font-light">Hear From You</em>
+                  <em className="text-brand font-light">Hear From You</em>
                 </h2>
-                <p className="text-muted-oq text-sm leading-relaxed">
-                  Every great partnership begins with a conversation. Tell us about your challenges,
-                  your goals, and what success looks like for you. We&apos;ll listen, ask the right questions,
-                  and propose a path forward.
+                <p className="text-ink-muted text-sm leading-relaxed">
+                  Every great partnership starts with a conversation. Use the form to tell us about your
+                  project and we will get back to you within one business day.
                 </p>
               </motion.div>
 
-              <motion.div variants={fadeUp} className="space-y-6">
-                <div className="flex gap-4 pb-6 border-b border-orange-500/15">
-                  <div className="w-9 h-9 border border-orange-500/35 flex items-center justify-center text-orange-500 shrink-0">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                      <polyline points="22,6 12,13 2,6" />
-                    </svg>
+              {/* Contact info items */}
+              <motion.div variants={fadeUp} className="space-y-5 mb-8">
+                {contactInfo.map(({ icon, label, value, href }) => (
+                  <div key={label} className="flex gap-4 pb-5 border-b border-surface-4 last:border-0">
+                    <div className="w-9 h-9 border border-brand/25 flex items-center justify-center text-brand shrink-0">
+                      {icon}
+                    </div>
+                    <div>
+                      <div className="text-brand text-xs tracking-[0.2em] uppercase mb-0.5">{label}</div>
+                      {href ? (
+                        <a href={href} className="text-ink-2 text-sm hover:text-brand transition-colors">
+                          {value}
+                        </a>
+                      ) : (
+                        <div className="text-ink-2 text-sm">{value}</div>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-orange-500 text-xs tracking-[0.2em] uppercase mb-1">Email</div>
-                    <div className="text-black-2 text-sm">hello@omniqubits.com</div>
-                  </div>
-                </div>
+                ))}
+              </motion.div>
 
-                <div className="flex gap-4 pb-6 border-b border-orange-500/15">
-                  <div className="w-9 h-9 border border-orange-500/35 flex items-center justify-center text-orange-500 shrink-0">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="2" y1="12" x2="22" y2="12" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
+              {/* Why us */}
+              <motion.div variants={fadeUp} className="space-y-4">
+                {whyUs.map((item) => (
+                  <div key={item.title} className="flex gap-3">
+                    <CheckCircle2 size={16} className="text-brand shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-ink text-sm font-medium">{item.title}</div>
+                      <div className="text-ink-muted text-xs leading-relaxed">{item.desc}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-orange-500 text-xs tracking-[0.2em] uppercase mb-1">Global HQ</div>
-                    <div className="text-black-2 text-sm">Serving clients across 12+ countries worldwide</div>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="w-9 h-9 border border-orange-500/35 flex items-center justify-center text-orange-500 shrink-0">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="text-orange-500 text-xs tracking-[0.2em] uppercase mb-1">Response Time</div>
-                    <div className="text-black-2 text-sm">Within 24 business hours</div>
-                  </div>
-                </div>
+                ))}
               </motion.div>
             </motion.div>
 
-            {/* Form Column */}
+            {/* ── Right column — form ── */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
+              initial="hidden" whileInView="visible"
+              viewport={{ once: true }} variants={fadeUp}
+              className="md:col-span-3"
             >
-              {formStatus === "success" ? (
-                <div className="bg-white-2 border border-orange-500/35 p-8 text-center">
-                  <div className="w-16 h-16 border border-orange-500 mx-auto mb-6 flex items-center justify-center">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-orange-500">
-                      <path d="M20 6L9 17l-5-5" />
-                    </svg>
-                  </div>
-                  <h3 className="font-display text-2xl text-black mb-3">Message Received!</h3>
-                  <p className="text-muted-oq text-sm mb-6">
-                    Thank you for reaching out. We&apos;ll be in touch within 24 business hours.
-                  </p>
-                  <button
-                    onClick={() => setFormStatus("idle")}
-                    className="text-orange-500 text-xs tracking-[0.15em] uppercase border-b border-orange-500/30 pb-1 hover:border-orange-500 transition-colors"
+              <AnimatePresence mode="wait">
+
+                {/* ── Success state ── */}
+                {status === "success" ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{   opacity: 0 }}
+                    className="bg-surface-2 border border-brand/25 p-10 text-center flex flex-col items-center gap-6 min-h-[400px] justify-center"
                   >
-                    Send Another Message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="space-y-2">
-                    <label className="text-muted-oq text-xs tracking-[0.2em] uppercase">Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your full name"
-                      required
-                      className="w-full bg-white border border-orange-500/15 text-black px-4 py-3 text-sm focus:outline-none focus:border-orange-500 transition-colors placeholder:text-muted-oq/50"
-                    />
-                  </div>
+                    <div className="w-16 h-16 rounded-full border border-brand flex items-center justify-center">
+                      <CheckCircle2 size={28} className="text-brand" />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-2xl text-ink mb-2">Message Received</h3>
+                      <p className="text-ink-muted text-sm leading-relaxed max-w-xs mx-auto">
+                        Thank you for reaching out. A member of our team will be in touch
+                        within 24 business hours.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => { setStatus("idle"); setErrMsg(""); }}
+                      className="inline-flex items-center gap-2 border border-brand/30 hover:border-brand text-ink hover:text-brand px-6 py-2.5 text-xs tracking-[0.15em] uppercase transition-colors"
+                    >
+                      Send Another Message
+                    </button>
+                  </motion.div>
 
-                  <div className="space-y-2">
-                    <label className="text-muted-oq text-xs tracking-[0.2em] uppercase">Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="you@company.com"
-                      required
-                      className="w-full bg-white border border-orange-500/15 text-black px-4 py-3 text-sm focus:outline-none focus:border-orange-500 transition-colors placeholder:text-muted-oq/50"
-                    />
-                  </div>
+                ) : (
 
-                  <div className="space-y-2">
-                    <label className="text-muted-oq text-xs tracking-[0.2em] uppercase">Contact Number *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="+1 555 123 4567"
-                      required
-                      className="w-full bg-white border border-orange-500/15 text-black px-4 py-3 text-sm focus:outline-none focus:border-orange-500 transition-colors placeholder:text-muted-oq/50"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-muted-oq text-xs tracking-[0.2em] uppercase">Company</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      placeholder="Your Company Name"
-                      className="w-full bg-white border border-orange-500/15 text-black px-4 py-3 text-sm focus:outline-none focus:border-orange-500 transition-colors placeholder:text-muted-oq/50"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-muted-oq text-xs tracking-[0.2em] uppercase">Message *</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Tell us about your project, challenges, or goals..."
-                      required
-                      rows={5}
-                      className="w-full bg-white border border-orange-500/15 text-black px-4 py-3 text-sm focus:outline-none focus:border-orange-500 transition-colors placeholder:text-muted-oq/50 resize-none"
-                    />
-                  </div>
-
-                  {formStatus === "error" && (
-                    <div className="text-red-400 text-sm">{errorMessage}</div>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={formStatus === "loading"}
-                    className="w-full bg-orange-500 text-obsidian py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-orange-500-light hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  /* ── Form ── */
+                  <motion.form
+                    key="form"
+                    onSubmit={handleSubmit}
+                    className="space-y-5"
+                    initial={{ opacity: 1 }}
                   >
-                    {formStatus === "loading" ? "Sending..." : "Send Message"}
-                  </button>
-                </form>
-              )}
+                    {/* Name + Email */}
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <Label>Full Name <span className="text-brand">*</span></Label>
+                        <input
+                          type="text"
+                          placeholder="Alex Johnson"
+                          required
+                          value={form.name}
+                          onChange={set("name")}
+                          className={inputClass}
+                        />
+                      </div>
+                      <div>
+                        <Label>Email Address <span className="text-brand">*</span></Label>
+                        <input
+                          type="email"
+                          placeholder="you@company.com"
+                          required
+                          value={form.email}
+                          onChange={set("email")}
+                          className={inputClass}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Phone + Company */}
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <Label>Contact Number <span className="text-brand">*</span></Label>
+                        <input
+                          type="tel"
+                          placeholder="+1 555 123 4567"
+                          required
+                          value={form.phone}
+                          onChange={set("phone")}
+                          className={inputClass}
+                        />
+                      </div>
+                      <div>
+                        <Label>Company Name</Label>
+                        <input
+                          type="text"
+                          placeholder="Your Company Ltd."
+                          value={form.company}
+                          onChange={set("company")}
+                          className={inputClass}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Service + Budget */}
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="relative">
+                        <Label>Service Interest</Label>
+                        <select
+                          value={form.service}
+                          onChange={set("service")}
+                          className={selectClass}
+                        >
+                          <option value="">Select a service…</option>
+                          {serviceOptions.map((s) => (
+                            <option key={s} value={s}>{s}</option>
+                          ))}
+                        </select>
+                        <ArrowRight size={12} className="absolute right-3 top-[38px] text-ink-muted rotate-90 pointer-events-none" />
+                      </div>
+                      <div className="relative">
+                        <Label>Monthly Budget <span className="text-brand">*</span></Label>
+                        <select
+                          value={form.budget}
+                          onChange={set("budget")}
+                          required
+                          className={selectClass}
+                        >
+                          <option value="">Select a range…</option>
+                          {budgetOptions.map((b) => (
+                            <option key={b} value={b}>{b}</option>
+                          ))}
+                        </select>
+                        <ArrowRight size={12} className="absolute right-3 top-[38px] text-ink-muted rotate-90 pointer-events-none" />
+                      </div>
+                    </div>
+
+                    {/* Message */}
+                    <div>
+                      <Label>Tell Us About Your Goals <span className="text-brand">*</span></Label>
+                      <textarea
+                        rows={5}
+                        placeholder="Describe your current challenges, what you need help with, and what success looks like for your business…"
+                        required
+                        value={form.message}
+                        onChange={set("message")}
+                        className={`${inputClass} resize-none`}
+                      />
+                    </div>
+
+                    {/* Error */}
+                    {status === "error" && (
+                      <div className="flex items-center gap-2 text-red-500 text-sm bg-red-50 border border-red-200 px-4 py-3">
+                        <X size={14} className="shrink-0" />
+                        {errMsg}
+                      </div>
+                    )}
+
+                    {/* Submit */}
+                    <button
+                      type="submit"
+                      disabled={status === "loading"}
+                      className="w-full bg-brand hover:bg-brand-light disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 text-sm font-medium tracking-[0.15em] uppercase transition-colors"
+                    >
+                      {status === "loading" ? "Sending…" : "Send Message"}
+                    </button>
+
+                    <p className="text-ink-muted/60 text-xs text-center">
+                      We respond within 24 business hours. Your information is kept private.
+                    </p>
+                  </motion.form>
+                )}
+              </AnimatePresence>
             </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* Map / Additional Info */}
-      <section className="py-24 px-4 bg-white-2">
+      {/* ── Why Choose Us ─────────────────────────────────── */}
+      <section className="py-24 px-6 bg-surface-2">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <span className="h-px w-12 bg-orange-500/60" />
-              <span className="text-orange-500 text-xs tracking-[0.3em] uppercase">Why Choose Us</span>
-              <span className="h-px w-12 bg-orange-500/60" />
+              <span className="h-px w-10 bg-brand/50" />
+              <span className="text-brand text-xs tracking-[0.3em] uppercase">Why Choose Us</span>
+              <span className="h-px w-10 bg-brand/50" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl">
               The OmniQubits<br />
-              <em className="text-orange-500 font-light">Difference</em>
+              <em className="text-brand font-light">Difference</em>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              {
-                title: "Holistic Approach",
-                description: "We don't work in silos. Marketing, technology, and customer experience are unified in our strategy.",
-              },
-              {
-                title: "Proven Results",
-                description: "200+ clients served, 98% retention rate, and 5x average ROI. We deliver measurable outcomes.",
-              },
-              {
-                title: "Future-Ready",
-                description: "Our quantum-inspired approach means we're always thinking ahead, preparing your business for what's next.",
-              }
+              { title: "One Connected System",    desc: "Strategy, marketing, technology, and support connected — not siloed. Your growth engine works as one." },
+              { title: "Measured Outcomes",        desc: "We define KPIs before we start and report on them clearly. No vanity metrics — only what moves your business forward." },
+              { title: "Built for the Long Run",   desc: "We build systems that scale with your business. Every solution is designed for sustainability, not a quick fix." },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white border border-orange-500/15 p-8 hover:border-orange-500/35 transition-all"
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="bg-surface border border-surface-4 hover:border-brand/30 p-8 transition-colors shadow-card hover:shadow-card-hover"
               >
-                <h3 className="font-display text-lg text-black mb-3">{item.title}</h3>
-                <p className="text-muted-oq text-sm leading-relaxed">{item.description}</p>
+                <h3 className="font-display text-xl text-ink mb-3">{item.title}</h3>
+                <p className="text-ink-muted text-sm leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* ── Final CTA strip ───────────────────────────────── */}
+      <section className="py-16 px-6 bg-brand">
+        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="font-display text-2xl text-white mb-1">Not ready to fill the form yet?</p>
+            <p className="text-white/70 text-sm">Explore our work and see if we are the right fit first.</p>
+          </div>
+          <div className="flex gap-3 shrink-0">
+            <Link
+              href="/clients"
+              className="bg-white text-brand px-6 py-3 text-xs tracking-[0.15em] uppercase font-medium hover:bg-surface-2 transition-colors"
+            >
+              View Clients
+            </Link>
+            <Link
+              href="/services"
+              className="border border-white/40 text-white px-6 py-3 text-xs tracking-[0.15em] uppercase hover:bg-white/10 transition-colors"
+            >
+              Our Services
+            </Link>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

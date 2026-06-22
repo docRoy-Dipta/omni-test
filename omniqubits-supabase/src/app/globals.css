@@ -3,63 +3,75 @@
 @tailwind utilities;
 
 /*
-  NOTE: Google Fonts are loaded via <link> tags in app/layout.tsx
-  using rel="preconnect" + rel="stylesheet".
-  Do NOT add @import here — CSS @import is render-blocking and
-  delays the first paint by 300-600ms on slow connections.
+  ═══════════════════════════════════════════════════════════
+  OmniQubits — Global Styles & Design Tokens
+  Theme: White + Orange
+  ═══════════════════════════════════════════════════════════
+
+  NOTE: Fonts are loaded via <link> tags in app/layout.tsx.
+  Do NOT add @import here — CSS @import is render-blocking
+  and delays first paint by 300–600ms on slow connections.
 */
 
+/* ─────────────────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES — Single source of truth
+   Every color, font, and spacing token lives here.
+   ───────────────────────────────────────────────────────── */
 @layer base {
   :root {
-    /* ── OmniQubits Design Tokens ─────────────────────── */
-    /* Brown replaced with Orange */
-    --gold:         #FF8C00;
-    --gold-light:   #FFB347;
-    --gold-dark:    #CC7000;
-    /* White colors replaced with Black */
-    --obsidian:     #FFFFFF;
-    --obsidian-2:   #F0F0F0;
-    --obsidian-3:   #E5E5E5;
-    --obsidian-4:   #D4D4D4;
-    --obsidian-5:   #C0C0C0;
-    /* Cream replaced with Black */
-    --cream:        #000000;
-    --cream-2:      #1A1A1A;
-    --muted-color:  #6B6B6B;
-    --border-color: rgba(255, 140, 0, 0.15);
-    --border-glow:  rgba(255, 140, 0, 0.35);
+    /* ── Brand (Orange) ───────────────────────────────── */
+    --brand:        #FF8C00;   /* primary orange */
+    --brand-light:  #FFB347;   /* lighter orange — hover */
+    --brand-dark:   #CC7000;   /* deeper orange — depth */
+    --brand-subtle: rgba(255, 140, 0, 0.12);  /* faint tint */
+    --brand-glow:   rgba(255, 140, 0, 0.35);  /* glow border */
+
+    /* ── Surface Scale (white → warm grey) ───────────── */
+    --surface:   #FFFFFF;   /* pure white */
+    --surface-2: #F8F7F5;   /* warm off-white */
+    --surface-3: #F0EEE9;   /* light warm grey */
+    --surface-4: #E5E2DC;   /* medium warm grey */
+    --surface-5: #D6D2CA;   /* deeper warm grey */
+
+    /* ── Ink (text) ───────────────────────────────────── */
+    --ink:       #111111;   /* near-black */
+    --ink-2:     #333333;   /* dark grey */
+    --ink-3:     #555555;   /* medium grey */
+    --ink-muted: #6B7280;   /* captions, labels */
+
+    /* ── Typography ───────────────────────────────────── */
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body:    'Jost', sans-serif;
 
-    /* ── ShadCN Required CSS Variables ───────────────── */
-    /* Background is now white */
+    /* ── ShadCN Required Tokens ───────────────────────── */
     --background:             0 0% 100%;
-    /* Foreground is now black */
-    --foreground:             0 0% 0%;
-    --card:                   0 0% 98%;
-    --card-foreground:        0 0% 0%;
-    --popover:                0 0% 98%;
-    --popover-foreground:     0 0% 0%;
-    /* Primary is now orange */
+    --foreground:             0 0% 7%;
+    --card:                   0 0% 99%;
+    --card-foreground:        0 0% 7%;
+    --popover:                0 0% 99%;
+    --popover-foreground:     0 0% 7%;
     --primary:                33 100% 50%;
     --primary-foreground:     0 0% 100%;
-    --secondary:              0 0% 90%;
-    --secondary-foreground:   0 0% 0%;
-    --muted:                  0 0% 85%;
-    --muted-foreground:       0 0% 40%;
+    --secondary:              30 10% 94%;
+    --secondary-foreground:   0 0% 7%;
+    --muted:                  30 10% 90%;
+    --muted-foreground:       0 0% 42%;
     --accent:                 33 100% 50%;
     --accent-foreground:      0 0% 100%;
     --destructive:            0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border:                 0 0% 80%;
-    --input:                  0 0% 90%;
+    --border:                 30 10% 82%;
+    --input:                  30 10% 90%;
     --ring:                   33 100% 50%;
-    --radius:                 0.125rem;
+    --radius:                 0.25rem;
   }
 }
 
+/* ─────────────────────────────────────────────────────────
+   BASE RESETS & ELEMENT DEFAULTS
+   ───────────────────────────────────────────────────────── */
 @layer base {
-  * {
+  *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -70,62 +82,122 @@
   }
 
   body {
-    background-color: var(--obsidian);
-    color: var(--cream);
+    background-color: var(--surface);
+    color: var(--ink);
     font-family: var(--font-body);
     font-weight: 300;
     line-height: 1.7;
     overflow-x: hidden;
   }
 
-  /* Noise texture overlay — removed for white background */
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar       { width: 3px; }
-  ::-webkit-scrollbar-track { background: var(--obsidian); }
-  ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
-
-  /* Heading defaults */
+  /* Heading defaults — display font for all headings */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 400;
     line-height: 1.2;
+    color: var(--ink);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar        { width: 3px; }
+  ::-webkit-scrollbar-track  { background: var(--surface-2); }
+  ::-webkit-scrollbar-thumb  { background: var(--brand-dark); border-radius: 2px; }
+
+  /* Focus ring uses brand color */
+  *:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
   }
 }
 
+/* ─────────────────────────────────────────────────────────
+   UTILITY CLASSES
+   These complement Tailwind. Every class used across all
+   page files is defined here so nothing silently breaks.
+   ───────────────────────────────────────────────────────── */
 @layer utilities {
-  /* Typography */
-  .font-display        { font-family: var(--font-display); }
-  .text-orange         { color: var(--gold); }
-  .text-orange-light   { color: var(--gold-light); }
-  .text-muted-oq       { color: var(--muted-color); }
-  .text-muted-color    { color: var(--muted-color); }
-  .text-black          { color: var(--cream); }
-  .text-black-2        { color: var(--cream-2); }
 
-  /* Backgrounds */
-  .bg-white   { background-color: var(--obsidian); }
-  .bg-white-2 { background-color: var(--obsidian-2); }
-  .bg-white-3 { background-color: var(--obsidian-3); }
-  .bg-white-4 { background-color: var(--obsidian-4); }
-  .bg-white-5 { background-color: var(--obsidian-5); }
+  /* ── Typography ───────────────────────────────────── */
+  .font-display   { font-family: var(--font-display); }
+  .font-body      { font-family: var(--font-body); }
 
-  /* Borders */
-  .border-orange         { border-color: var(--gold); }
-  .border-orange-subtle  { border-color: var(--border-color); }
-  .border-orange-glow   { border-color: var(--border-glow); }
+  /* Text colors */
+  .text-brand       { color: var(--brand); }
+  .text-brand-light { color: var(--brand-light); }
+  .text-ink         { color: var(--ink); }
+  .text-ink-2       { color: var(--ink-2); }
+  .text-ink-3       { color: var(--ink-3); }
+  .text-ink-muted   { color: var(--ink-muted); }
 
-  /* Effects */
+  /* Legacy aliases — used in existing page files */
+  .text-muted-oq    { color: var(--ink-muted); }
+  .text-muted-color { color: var(--ink-muted); }
+  .text-black       { color: var(--ink); }
+  .text-black-2     { color: var(--ink-2); }
+  .text-orange      { color: var(--brand); }
+  .text-orange-light { color: var(--brand-light); }
+
+  /* ── Backgrounds ──────────────────────────────────── */
+  .bg-surface    { background-color: var(--surface); }
+  .bg-surface-2  { background-color: var(--surface-2); }
+  .bg-surface-3  { background-color: var(--surface-3); }
+  .bg-surface-4  { background-color: var(--surface-4); }
+  .bg-surface-5  { background-color: var(--surface-5); }
+  .bg-brand      { background-color: var(--brand); }
+  .bg-brand-light { background-color: var(--brand-light); }
+  .bg-brand-subtle { background-color: var(--brand-subtle); }
+
+  /* Legacy aliases — used in existing page files */
+  .bg-white      { background-color: var(--surface); }
+  .bg-white-2    { background-color: var(--surface-2); }
+  .bg-white-3    { background-color: var(--surface-3); }
+  .bg-white-4    { background-color: var(--surface-4); }
+  .bg-white-5    { background-color: var(--surface-5); }
+
+  /* Obsidian alias used in pricing card CTA text-obsidian */
+  .text-obsidian  { color: var(--surface); }
+  /* When bg is orange, white text needed */
+  .bg-obsidian    { background-color: var(--ink); }
+
+  /* ── Borders ──────────────────────────────────────── */
+  .border-brand        { border-color: var(--brand); }
+  .border-brand-subtle { border-color: var(--brand-subtle); }
+  .border-brand-glow   { border-color: var(--brand-glow); }
+
+  /* Legacy aliases */
+  .border-orange         { border-color: var(--brand); }
+  .border-orange-subtle  { border-color: var(--brand-subtle); }
+  .border-orange-glow    { border-color: var(--brand-glow); }
+  .border-orange-subtle  { border-color: var(--brand-subtle); }
+
+  /* Navbar / footer uses border-orange-subtle */
+  .border-subtle { border-color: var(--brand-subtle); }
+
+  /* ── Effects & Shadows ────────────────────────────── */
+  .brand-glow {
+    box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
+  }
   .orange-glow {
     box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
   }
 
+  .brand-text-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--brand-light) 0%,
+      var(--brand)       50%,
+      var(--brand-dark)  100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .orange-text-gradient {
     background: linear-gradient(
       135deg,
-      var(--gold-light) 0%,
-      var(--gold)       50%,
-      var(--gold-dark)  100%
+      var(--brand-light) 0%,
+      var(--brand)       50%,
+      var(--brand-dark)  100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
